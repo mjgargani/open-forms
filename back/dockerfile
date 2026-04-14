@@ -1,0 +1,11 @@
+# ESTÁGIO 1: Desenvolvimento (Alvo atual)
+FROM node:22-alpine As development
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 5173
+CMD ["npm", "run", "dev", "--", "--host"]
+
+# ESTÁGIO 2: Build & Produção (Para servidor web NGINX futuro)
+# FROM node:22-alpine As build

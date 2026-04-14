@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    env_file: .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  back:
+    build:
+      context: ./back
+      target: development # Foca apenas no estágio de dev
+    env_file: .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./back:/usr/src/app # Hot reload: reflete código local
+      - /usr/src/app/node_modules # Volume anônimo: isola dependências
+    depends_on:
+      - postgres
+      - redis
+
+  front:
+    build:
+      context: ./front
+      target: development # Foca apenas no estágio de dev
+    env_file: .env
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./front:/usr/src/app # Hot reload
+      - /usr/src/app/node_modules # Volume anônimo
+    depends_on:
+      - back
+
+volumes:
+  postgres_data:
