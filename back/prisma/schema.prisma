@@ -5,7 +5,11 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
+  moduleFormat = "cjs" 
+  // "Matches Prisma's output format with NestJS's CommonJS runtime environment."
+  // (https://medium.com/@msmiraj8/get-started-with-prisma-7-with-nest-js-mysql-3919eaa7c760)
+  engineType = "library"
 }
 
 datasource db {
