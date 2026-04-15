@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Form {
+  id          String     @id @default(uuid())
+  title       String     @db.VarChar(280)
+  description String?    @db.VarChar(280)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt @default(now())
+  questions   Question[]
+}
+
+enum QuestionType {
+  TEXT
+  MULTIPLE
+  UNIQUE
+}
+
+model Question {
+  id        String        @id @default(uuid())
+  title     String        @db.VarChar(280)
+  type      QuestionType
+  formId    String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt @default(now())
+
+  form      Form          @relation(fields: [formId], references: [id], onDelete: Cascade)
+  options   Option[]
+}
+
+model Option {
+  id              String      @id @default(uuid())
+  description     String      @db.VarChar(280)
+  type            QuestionType
+  correct         Boolean     @default(false)
+  questionId      String
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt @default(now())
+
+  question        Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}

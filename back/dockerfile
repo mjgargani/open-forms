@@ -1,11 +1,17 @@
 # ESTÁGIO 1: Desenvolvimento (Alvo atual)
-FROM node:22-alpine As development
+FROM node:24.14.1-trixie AS development
 WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 5173
-CMD ["npm", "run", "dev", "--", "--host"]
+CMD ["npm", "run", "start:dev"]
 
-# ESTÁGIO 2: Build & Produção (Para servidor web NGINX futuro)
-# FROM node:22-alpine As build
+# ESTÁGIO 2: Build (Para produção futura)
+# FROM node:24.14.1-trixie AS build
+# WORKDIR /usr/src/app
+# COPY package*.json ./
+# COPY --from=development /usr/src/app/node_modules ./node_modules
+# COPY . .
+# RUN npx prisma generate
+# RUN npm run build
+
+# ESTÁGIO 3: Produção (Para o servidor final)
+# FROM node:24.14.1-trixie AS production
+# (Configurações de cópia da pasta dist e execução do node puro entrariam aqui)
