@@ -54,3 +54,13 @@ export type Question = Prisma.QuestionModel
  * 
  */
 export type Option = Prisma.OptionModel
+/**
+ * Model Submission
+ * 
+ */
+export type Submission = Prisma.SubmissionModel
+/**
+ * Model Answer
+ * 
+ */
+export type Answer = Prisma.AnswerModel

@@ -26,6 +26,7 @@ export type AggregateForm = {
 
 export type FormMinAggregateOutputType = {
   id: string | null
+  active: boolean | null
   title: string | null
   description: string | null
   createdAt: Date | null
@@ -34,6 +35,7 @@ export type FormMinAggregateOutputType = {
 
 export type FormMaxAggregateOutputType = {
   id: string | null
+  active: boolean | null
   title: string | null
   description: string | null
   createdAt: Date | null
@@ -42,6 +44,7 @@ export type FormMaxAggregateOutputType = {
 
 export type FormCountAggregateOutputType = {
   id: number
+  active: number
   title: number
   description: number
   createdAt: number
@@ -52,6 +55,7 @@ export type FormCountAggregateOutputType = {
 
 export type FormMinAggregateInputType = {
   id?: true
+  active?: true
   title?: true
   description?: true
   createdAt?: true
@@ -60,6 +64,7 @@ export type FormMinAggregateInputType = {
 
 export type FormMaxAggregateInputType = {
   id?: true
+  active?: true
   title?: true
   description?: true
   createdAt?: true
@@ -68,6 +73,7 @@ export type FormMaxAggregateInputType = {
 
 export type FormCountAggregateInputType = {
   id?: true
+  active?: true
   title?: true
   description?: true
   createdAt?: true
@@ -149,6 +155,7 @@ export type FormGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type FormGroupByOutputType = {
   id: string
+  active: boolean
   title: string
   description: string | null
   createdAt: Date
@@ -178,20 +185,24 @@ export type FormWhereInput = {
   OR?: Prisma.FormWhereInput[]
   NOT?: Prisma.FormWhereInput | Prisma.FormWhereInput[]
   id?: Prisma.StringFilter<"Form"> | string
+  active?: Prisma.BoolFilter<"Form"> | boolean
   title?: Prisma.StringFilter<"Form"> | string
   description?: Prisma.StringNullableFilter<"Form"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   questions?: Prisma.QuestionListRelationFilter
+  submissions?: Prisma.SubmissionListRelationFilter
 }
 
 export type FormOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  active?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   questions?: Prisma.QuestionOrderByRelationAggregateInput
+  submissions?: Prisma.SubmissionOrderByRelationAggregateInput
 }
 
 export type FormWhereUniqueInput = Prisma.AtLeast<{
@@ -199,15 +210,18 @@ export type FormWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.FormWhereInput | Prisma.FormWhereInput[]
   OR?: Prisma.FormWhereInput[]
   NOT?: Prisma.FormWhereInput | Prisma.FormWhereInput[]
+  active?: Prisma.BoolFilter<"Form"> | boolean
   title?: Prisma.StringFilter<"Form"> | string
   description?: Prisma.StringNullableFilter<"Form"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   questions?: Prisma.QuestionListRelationFilter
+  submissions?: Prisma.SubmissionListRelationFilter
 }, "id">
 
 export type FormOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  active?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -222,6 +236,7 @@ export type FormScalarWhereWithAggregatesInput = {
   OR?: Prisma.FormScalarWhereWithAggregatesInput[]
   NOT?: Prisma.FormScalarWhereWithAggregatesInput | Prisma.FormScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Form"> | string
+  active?: Prisma.BoolWithAggregatesFilter<"Form"> | boolean
   title?: Prisma.StringWithAggregatesFilter<"Form"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Form"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Form"> | Date | string
@@ -230,42 +245,51 @@ export type FormScalarWhereWithAggregatesInput = {
 
 export type FormCreateInput = {
   id?: string
+  active?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.QuestionCreateNestedManyWithoutFormInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutFormInput
 }
 
 export type FormUncheckedCreateInput = {
   id?: string
+  active?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutFormInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutFormInput
 }
 
 export type FormUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.QuestionUpdateManyWithoutFormNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutFormNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutFormNestedInput
 }
 
 export type FormCreateManyInput = {
   id?: string
+  active?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
@@ -274,6 +298,7 @@ export type FormCreateManyInput = {
 
 export type FormUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -282,6 +307,7 @@ export type FormUpdateManyMutationInput = {
 
 export type FormUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -290,6 +316,7 @@ export type FormUncheckedUpdateManyInput = {
 
 export type FormCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  active?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -298,6 +325,7 @@ export type FormCountOrderByAggregateInput = {
 
 export type FormMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  active?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -306,6 +334,7 @@ export type FormMaxOrderByAggregateInput = {
 
 export type FormMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  active?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -319,6 +348,10 @@ export type FormScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -343,20 +376,38 @@ export type FormUpdateOneRequiredWithoutQuestionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FormUpdateToOneWithWhereWithoutQuestionsInput, Prisma.FormUpdateWithoutQuestionsInput>, Prisma.FormUncheckedUpdateWithoutQuestionsInput>
 }
 
+export type FormCreateNestedOneWithoutSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.FormCreateWithoutSubmissionsInput, Prisma.FormUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.FormCreateOrConnectWithoutSubmissionsInput
+  connect?: Prisma.FormWhereUniqueInput
+}
+
+export type FormUpdateOneRequiredWithoutSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.FormCreateWithoutSubmissionsInput, Prisma.FormUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.FormCreateOrConnectWithoutSubmissionsInput
+  upsert?: Prisma.FormUpsertWithoutSubmissionsInput
+  connect?: Prisma.FormWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FormUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.FormUpdateWithoutSubmissionsInput>, Prisma.FormUncheckedUpdateWithoutSubmissionsInput>
+}
+
 export type FormCreateWithoutQuestionsInput = {
   id?: string
+  active?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutFormInput
 }
 
 export type FormUncheckedCreateWithoutQuestionsInput = {
   id?: string
+  active?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutFormInput
 }
 
 export type FormCreateOrConnectWithoutQuestionsInput = {
@@ -377,18 +428,78 @@ export type FormUpdateToOneWithWhereWithoutQuestionsInput = {
 
 export type FormUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutFormNestedInput
+}
+
+export type FormCreateWithoutSubmissionsInput = {
+  id?: string
+  active?: boolean
+  title: string
+  description?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  questions?: Prisma.QuestionCreateNestedManyWithoutFormInput
+}
+
+export type FormUncheckedCreateWithoutSubmissionsInput = {
+  id?: string
+  active?: boolean
+  title: string
+  description?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutFormInput
+}
+
+export type FormCreateOrConnectWithoutSubmissionsInput = {
+  where: Prisma.FormWhereUniqueInput
+  create: Prisma.XOR<Prisma.FormCreateWithoutSubmissionsInput, Prisma.FormUncheckedCreateWithoutSubmissionsInput>
+}
+
+export type FormUpsertWithoutSubmissionsInput = {
+  update: Prisma.XOR<Prisma.FormUpdateWithoutSubmissionsInput, Prisma.FormUncheckedUpdateWithoutSubmissionsInput>
+  create: Prisma.XOR<Prisma.FormCreateWithoutSubmissionsInput, Prisma.FormUncheckedCreateWithoutSubmissionsInput>
+  where?: Prisma.FormWhereInput
+}
+
+export type FormUpdateToOneWithWhereWithoutSubmissionsInput = {
+  where?: Prisma.FormWhereInput
+  data: Prisma.XOR<Prisma.FormUpdateWithoutSubmissionsInput, Prisma.FormUncheckedUpdateWithoutSubmissionsInput>
+}
+
+export type FormUpdateWithoutSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  questions?: Prisma.QuestionUpdateManyWithoutFormNestedInput
+}
+
+export type FormUncheckedUpdateWithoutSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutFormNestedInput
 }
 
 
@@ -398,10 +509,12 @@ export type FormUncheckedUpdateWithoutQuestionsInput = {
 
 export type FormCountOutputType = {
   questions: number
+  submissions: number
 }
 
 export type FormCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   questions?: boolean | FormCountOutputTypeCountQuestionsArgs
+  submissions?: boolean | FormCountOutputTypeCountSubmissionsArgs
 }
 
 /**
@@ -421,19 +534,29 @@ export type FormCountOutputTypeCountQuestionsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.QuestionWhereInput
 }
 
+/**
+ * FormCountOutputType without action
+ */
+export type FormCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubmissionWhereInput
+}
+
 
 export type FormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  active?: boolean
   title?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   questions?: boolean | Prisma.Form$questionsArgs<ExtArgs>
+  submissions?: boolean | Prisma.Form$submissionsArgs<ExtArgs>
   _count?: boolean | Prisma.FormCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["form"]>
 
 export type FormSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  active?: boolean
   title?: boolean
   description?: boolean
   createdAt?: boolean
@@ -442,6 +565,7 @@ export type FormSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type FormSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  active?: boolean
   title?: boolean
   description?: boolean
   createdAt?: boolean
@@ -450,15 +574,17 @@ export type FormSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type FormSelectScalar = {
   id?: boolean
+  active?: boolean
   title?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type FormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["form"]>
+export type FormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "active" | "title" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["form"]>
 export type FormInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   questions?: boolean | Prisma.Form$questionsArgs<ExtArgs>
+  submissions?: boolean | Prisma.Form$submissionsArgs<ExtArgs>
   _count?: boolean | Prisma.FormCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FormIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -468,9 +594,11 @@ export type $FormPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Form"
   objects: {
     questions: Prisma.$QuestionPayload<ExtArgs>[]
+    submissions: Prisma.$SubmissionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    active: boolean
     title: string
     description: string | null
     createdAt: Date
@@ -870,6 +998,7 @@ readonly fields: FormFieldRefs;
 export interface Prisma__FormClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   questions<T extends Prisma.Form$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Form$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  submissions<T extends Prisma.Form$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Form$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -900,6 +1029,7 @@ export interface Prisma__FormClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface FormFieldRefs {
   readonly id: Prisma.FieldRef<"Form", 'String'>
+  readonly active: Prisma.FieldRef<"Form", 'Boolean'>
   readonly title: Prisma.FieldRef<"Form", 'String'>
   readonly description: Prisma.FieldRef<"Form", 'String'>
   readonly createdAt: Prisma.FieldRef<"Form", 'DateTime'>
@@ -1318,6 +1448,30 @@ export type Form$questionsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.QuestionScalarFieldEnum | Prisma.QuestionScalarFieldEnum[]
+}
+
+/**
+ * Form.submissions
+ */
+export type Form$submissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Submission
+   */
+  select?: Prisma.SubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Submission
+   */
+  omit?: Prisma.SubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubmissionInclude<ExtArgs> | null
+  where?: Prisma.SubmissionWhereInput
+  orderBy?: Prisma.SubmissionOrderByWithRelationInput | Prisma.SubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.SubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubmissionScalarFieldEnum | Prisma.SubmissionScalarFieldEnum[]
 }
 
 /**

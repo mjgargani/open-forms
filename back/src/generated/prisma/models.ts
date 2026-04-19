@@ -11,4 +11,6 @@
 export type * from './models/Form'
 export type * from './models/Question'
 export type * from './models/Option'
+export type * from './models/Submission'
+export type * from './models/Answer'
 export type * from './commonInputTypes'

@@ -18,15 +18,18 @@ datasource db {
 
 model Form {
   id          String     @id @default(uuid())
+  active      Boolean    @default(true)
   title       String     @db.VarChar(300)
   description String?    @db.VarChar(3000)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt @default(now())
   questions   Question[]
+  submissions Submission[]
 }
 
 model Question {
   id        String        @id @default(uuid())
+  active    Boolean       @default(true)
   title     String        @db.VarChar(10000)
   formId    String
   required  Boolean       @default(false)
@@ -35,6 +38,7 @@ model Question {
 
   form      Form          @relation(fields: [formId], references: [id], onDelete: Cascade)
   options   Option[]
+  answers   Answer[]
 }
 
 enum OptionType {
@@ -44,6 +48,7 @@ enum OptionType {
 
 model Option {
   id              String      @id @default(uuid())
+  active          Boolean     @default(true)
   description     String      @db.VarChar(2000)
   type            OptionType  @default(MARKDOWN)
   correct         Boolean     @default(false)
@@ -52,4 +57,30 @@ model Option {
   updatedAt       DateTime    @updatedAt @default(now())
 
   question        Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model Submission {
+  id          String   @id @default(uuid())
+  active      Boolean  @default(true)
+  user        String   @db.VarChar(300)
+  formId      String   
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt @default(now())
+
+  form        Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
+  answers     Answer[]
+}
+
+model Answer {
+  id           String      @id @default(uuid())
+  active       Boolean     @default(true)
+  submissionId String 
+  questionId   String
+  optionId     String?     // OptionType.MARKDOWN
+  textValue    String?     @db.VarChar(5000) // OptionType.INPUT
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt @default(now())
+
+  submission   Submission  @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  question     Question    @relation(fields: [questionId], references: [id])
 }
