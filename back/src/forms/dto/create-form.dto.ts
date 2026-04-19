@@ -1,12 +1,13 @@
-import { IsString, IsOptional, MaxLength } from 'class-validator';
+import { IsString, IsOptional, MaxLength, IsNotEmpty } from 'class-validator';
 
 export class CreateFormDto {
+  @IsNotEmpty()
   @IsString()
   @MaxLength(280)
   title!: string;
   
-  @IsString()
   @IsOptional()
+  @IsString()
   @MaxLength(280)
   description?: string;
 }

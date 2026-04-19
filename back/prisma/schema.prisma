@@ -18,24 +18,18 @@ datasource db {
 
 model Form {
   id          String     @id @default(uuid())
-  title       String     @db.VarChar(280)
-  description String?    @db.VarChar(280)
+  title       String     @db.VarChar(300)
+  description String?    @db.VarChar(3000)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt @default(now())
   questions   Question[]
 }
 
-enum QuestionType {
-  TEXT
-  MULTIPLE
-  UNIQUE
-}
-
 model Question {
   id        String        @id @default(uuid())
-  title     String        @db.VarChar(280)
-  type      QuestionType
+  title     String        @db.VarChar(10000)
   formId    String
+  required  Boolean       @default(false)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt @default(now())
 
@@ -43,10 +37,15 @@ model Question {
   options   Option[]
 }
 
+enum OptionType {
+  INPUT
+  MARKDOWN
+}
+
 model Option {
   id              String      @id @default(uuid())
-  description     String      @db.VarChar(280)
-  type            QuestionType
+  description     String      @db.VarChar(2000)
+  type            OptionType  @default(MARKDOWN)
   correct         Boolean     @default(false)
   questionId      String
   createdAt       DateTime    @default(now())

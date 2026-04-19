@@ -86,8 +86,8 @@ export type FormScalarFieldEnum = (typeof FormScalarFieldEnum)[keyof typeof Form
 export const QuestionScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  type: 'type',
   formId: 'formId',
+  required: 'required',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

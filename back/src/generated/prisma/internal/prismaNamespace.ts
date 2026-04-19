@@ -681,8 +681,8 @@ export type FormScalarFieldEnum = (typeof FormScalarFieldEnum)[keyof typeof Form
 export const QuestionScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  type: 'type',
   formId: 'formId',
+  required: 'required',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -762,23 +762,23 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'QuestionType'
- */
-export type EnumQuestionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuestionType'>
-    
-
-
-/**
- * Reference to a field of type 'QuestionType[]'
- */
-export type ListEnumQuestionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuestionType[]'>
-    
-
-
-/**
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'OptionType'
+ */
+export type EnumOptionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OptionType'>
+    
+
+
+/**
+ * Reference to a field of type 'OptionType[]'
+ */
+export type ListEnumOptionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OptionType[]'>
     
 
 

@@ -9,10 +9,9 @@
 * 🟢 You can import this file directly.
 */
 
-export const QuestionType = {
-  TEXT: 'TEXT',
-  MULTIPLE: 'MULTIPLE',
-  UNIQUE: 'UNIQUE'
+export const OptionType = {
+  INPUT: 'INPUT',
+  MARKDOWN: 'MARKDOWN'
 } as const
 
-export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
+export type OptionType = (typeof OptionType)[keyof typeof OptionType]

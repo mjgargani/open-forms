@@ -27,7 +27,7 @@ export type AggregateOption = {
 export type OptionMinAggregateOutputType = {
   id: string | null
   description: string | null
-  type: $Enums.QuestionType | null
+  type: $Enums.OptionType | null
   correct: boolean | null
   questionId: string | null
   createdAt: Date | null
@@ -37,7 +37,7 @@ export type OptionMinAggregateOutputType = {
 export type OptionMaxAggregateOutputType = {
   id: string | null
   description: string | null
-  type: $Enums.QuestionType | null
+  type: $Enums.OptionType | null
   correct: boolean | null
   questionId: string | null
   createdAt: Date | null
@@ -162,7 +162,7 @@ export type OptionGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type OptionGroupByOutputType = {
   id: string
   description: string
-  type: $Enums.QuestionType
+  type: $Enums.OptionType
   correct: boolean
   questionId: string
   createdAt: Date
@@ -193,7 +193,7 @@ export type OptionWhereInput = {
   NOT?: Prisma.OptionWhereInput | Prisma.OptionWhereInput[]
   id?: Prisma.StringFilter<"Option"> | string
   description?: Prisma.StringFilter<"Option"> | string
-  type?: Prisma.EnumQuestionTypeFilter<"Option"> | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeFilter<"Option"> | $Enums.OptionType
   correct?: Prisma.BoolFilter<"Option"> | boolean
   questionId?: Prisma.StringFilter<"Option"> | string
   createdAt?: Prisma.DateTimeFilter<"Option"> | Date | string
@@ -218,7 +218,7 @@ export type OptionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.OptionWhereInput[]
   NOT?: Prisma.OptionWhereInput | Prisma.OptionWhereInput[]
   description?: Prisma.StringFilter<"Option"> | string
-  type?: Prisma.EnumQuestionTypeFilter<"Option"> | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeFilter<"Option"> | $Enums.OptionType
   correct?: Prisma.BoolFilter<"Option"> | boolean
   questionId?: Prisma.StringFilter<"Option"> | string
   createdAt?: Prisma.DateTimeFilter<"Option"> | Date | string
@@ -245,7 +245,7 @@ export type OptionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.OptionScalarWhereWithAggregatesInput | Prisma.OptionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Option"> | string
   description?: Prisma.StringWithAggregatesFilter<"Option"> | string
-  type?: Prisma.EnumQuestionTypeWithAggregatesFilter<"Option"> | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeWithAggregatesFilter<"Option"> | $Enums.OptionType
   correct?: Prisma.BoolWithAggregatesFilter<"Option"> | boolean
   questionId?: Prisma.StringWithAggregatesFilter<"Option"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Option"> | Date | string
@@ -255,7 +255,7 @@ export type OptionScalarWhereWithAggregatesInput = {
 export type OptionCreateInput = {
   id?: string
   description: string
-  type: $Enums.QuestionType
+  type?: $Enums.OptionType
   correct?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -265,7 +265,7 @@ export type OptionCreateInput = {
 export type OptionUncheckedCreateInput = {
   id?: string
   description: string
-  type: $Enums.QuestionType
+  type?: $Enums.OptionType
   correct?: boolean
   questionId: string
   createdAt?: Date | string
@@ -275,7 +275,7 @@ export type OptionUncheckedCreateInput = {
 export type OptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeFieldUpdateOperationsInput | $Enums.OptionType
   correct?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -285,7 +285,7 @@ export type OptionUpdateInput = {
 export type OptionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeFieldUpdateOperationsInput | $Enums.OptionType
   correct?: Prisma.BoolFieldUpdateOperationsInput | boolean
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -295,7 +295,7 @@ export type OptionUncheckedUpdateInput = {
 export type OptionCreateManyInput = {
   id?: string
   description: string
-  type: $Enums.QuestionType
+  type?: $Enums.OptionType
   correct?: boolean
   questionId: string
   createdAt?: Date | string
@@ -305,7 +305,7 @@ export type OptionCreateManyInput = {
 export type OptionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeFieldUpdateOperationsInput | $Enums.OptionType
   correct?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -314,7 +314,7 @@ export type OptionUpdateManyMutationInput = {
 export type OptionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeFieldUpdateOperationsInput | $Enums.OptionType
   correct?: Prisma.BoolFieldUpdateOperationsInput | boolean
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -403,14 +403,14 @@ export type OptionUncheckedUpdateManyWithoutQuestionNestedInput = {
   deleteMany?: Prisma.OptionScalarWhereInput | Prisma.OptionScalarWhereInput[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
+export type EnumOptionTypeFieldUpdateOperationsInput = {
+  set?: $Enums.OptionType
 }
 
 export type OptionCreateWithoutQuestionInput = {
   id?: string
   description: string
-  type: $Enums.QuestionType
+  type?: $Enums.OptionType
   correct?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -419,7 +419,7 @@ export type OptionCreateWithoutQuestionInput = {
 export type OptionUncheckedCreateWithoutQuestionInput = {
   id?: string
   description: string
-  type: $Enums.QuestionType
+  type?: $Enums.OptionType
   correct?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -457,7 +457,7 @@ export type OptionScalarWhereInput = {
   NOT?: Prisma.OptionScalarWhereInput | Prisma.OptionScalarWhereInput[]
   id?: Prisma.StringFilter<"Option"> | string
   description?: Prisma.StringFilter<"Option"> | string
-  type?: Prisma.EnumQuestionTypeFilter<"Option"> | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeFilter<"Option"> | $Enums.OptionType
   correct?: Prisma.BoolFilter<"Option"> | boolean
   questionId?: Prisma.StringFilter<"Option"> | string
   createdAt?: Prisma.DateTimeFilter<"Option"> | Date | string
@@ -467,7 +467,7 @@ export type OptionScalarWhereInput = {
 export type OptionCreateManyQuestionInput = {
   id?: string
   description: string
-  type: $Enums.QuestionType
+  type?: $Enums.OptionType
   correct?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -476,7 +476,7 @@ export type OptionCreateManyQuestionInput = {
 export type OptionUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeFieldUpdateOperationsInput | $Enums.OptionType
   correct?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -485,7 +485,7 @@ export type OptionUpdateWithoutQuestionInput = {
 export type OptionUncheckedUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeFieldUpdateOperationsInput | $Enums.OptionType
   correct?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -494,7 +494,7 @@ export type OptionUncheckedUpdateWithoutQuestionInput = {
 export type OptionUncheckedUpdateManyWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  type?: Prisma.EnumOptionTypeFieldUpdateOperationsInput | $Enums.OptionType
   correct?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -564,7 +564,7 @@ export type $OptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     description: string
-    type: $Enums.QuestionType
+    type: $Enums.OptionType
     correct: boolean
     questionId: string
     createdAt: Date
@@ -995,7 +995,7 @@ export interface Prisma__OptionClient<T, Null = never, ExtArgs extends runtime.T
 export interface OptionFieldRefs {
   readonly id: Prisma.FieldRef<"Option", 'String'>
   readonly description: Prisma.FieldRef<"Option", 'String'>
-  readonly type: Prisma.FieldRef<"Option", 'QuestionType'>
+  readonly type: Prisma.FieldRef<"Option", 'OptionType'>
   readonly correct: Prisma.FieldRef<"Option", 'Boolean'>
   readonly questionId: Prisma.FieldRef<"Option", 'String'>
   readonly createdAt: Prisma.FieldRef<"Option", 'DateTime'>
