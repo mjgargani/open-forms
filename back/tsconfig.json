@@ -18,7 +18,8 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["node", "jest", "multer"]
   },
   "exclude": ["node_modules", "prisma", "test", "**/*.spec.ts", "dist"]
 }

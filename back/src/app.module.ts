@@ -6,9 +6,10 @@ import { FormsModule } from './forms/forms.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { QuestionsModule } from './questions/questions.module';
 import { OptionsModule } from './options/options.module';
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
-  imports: [FormsModule, PrismaModule, ConfigModule.forRoot(), QuestionsModule, OptionsModule],
+  imports: [FormsModule, PrismaModule, ConfigModule.forRoot(), QuestionsModule, OptionsModule, UploadsModule],
   controllers: [AppController],
   providers: [AppService],
 })
