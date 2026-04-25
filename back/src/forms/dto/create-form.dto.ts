@@ -3,11 +3,11 @@ import { IsString, IsOptional, MaxLength, IsNotEmpty } from 'class-validator';
 export class CreateFormDto {
   @IsNotEmpty()
   @IsString()
-  @MaxLength(280)
+  @MaxLength(300)
   title!: string;
   
   @IsOptional()
   @IsString()
-  @MaxLength(280)
+  @MaxLength(3000)
   description?: string;
 }

@@ -4,7 +4,7 @@ import { OptionType } from "../../generated/prisma/enums";
 export class CreateOptionDto {
   @IsNotEmpty()
   @IsString()
-  @MaxLength(280)
+  @MaxLength(2000)
   description!: string;
 
   @IsNotEmpty()
