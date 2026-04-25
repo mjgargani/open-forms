@@ -14,15 +14,7 @@ export class FormsService {
   }
 
   findAll() {
-    return this.prisma.form.findMany({
-      include: {
-        questions: {
-          include: {
-            options: true
-          }
-        }
-      }
-    });
+    return this.prisma.form.findMany();
   }
 
   findOne(id: string) {
