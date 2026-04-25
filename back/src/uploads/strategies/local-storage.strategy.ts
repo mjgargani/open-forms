@@ -6,11 +6,11 @@ import { IStorageStrategy } from '../interfaces/storage-strategy.interface';
 @Injectable()
 export class LocalStorageService implements IStorageStrategy {
   async save(file: Buffer, fileName: string): Promise<string> {
-    const uploadPath = join(__dirname, '..', '..', '..', '..', 'uploads');
+    const uploadPath = join(process.cwd(), 'uploads');
     await fs.mkdir(uploadPath, { recursive: true });
     const fullPath = join(uploadPath, fileName);
     
     await fs.writeFile(fullPath, file);
-    return fullPath;
+    return `/uploads/${fileName}`;
   }
 }

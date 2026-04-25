@@ -9,9 +9,14 @@ import { OptionsModule } from './options/options.module';
 import { UploadsModule } from './uploads/uploads.module';
 import { SubmissionsModule } from './submissions/submissions.module';
 import { AnswersModule } from './answers/answers.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
-  imports: [FormsModule, PrismaModule, ConfigModule.forRoot(), QuestionsModule, OptionsModule, UploadsModule, SubmissionsModule, AnswersModule],
+  imports: [ServeStaticModule.forRoot({
+    rootPath: join(process.cwd(), 'uploads'),
+    serveRoot: '/uploads'
+  }), PrismaModule, ConfigModule.forRoot(), QuestionsModule, OptionsModule, UploadsModule, SubmissionsModule, AnswersModule],
   controllers: [AppController],
   providers: [AppService],
 })
