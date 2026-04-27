@@ -38,17 +38,21 @@ services:
       - postgres
       - redis
     command: tail -f /dev/null
-  # front:
-  #   build:
-  #     context: ./front
-  #     target: development
-  #   env_file: .env
-  #   ports:
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./front:/usr/src/app
-  #   depends_on:
-  #     - back
+
+  front:
+    image: node:24.14.1-trixie
+    container_name: open-forms-front-dev
+    user: "node"
+    stdin_open: true
+    tty: true
+    env_file: .env
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./front:/usr/src/app
+    depends_on:
+      - back
+    command: tail -f /dev/null
 
 volumes:
   postgres_data:
