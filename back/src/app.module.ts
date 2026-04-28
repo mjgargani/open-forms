@@ -16,7 +16,7 @@ import { join } from 'path';
   imports: [ServeStaticModule.forRoot({
     rootPath: join(process.cwd(), 'media'),
     serveRoot: '/media'
-  }), PrismaModule, ConfigModule.forRoot(), QuestionsModule, OptionsModule, UploadsModule, SubmissionsModule, AnswersModule],
+  }), PrismaModule, ConfigModule.forRoot(), FormsModule, QuestionsModule, OptionsModule, UploadsModule, SubmissionsModule, AnswersModule],
   controllers: [AppController],
   providers: [AppService],
 })
