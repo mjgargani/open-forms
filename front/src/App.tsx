@@ -21,7 +21,7 @@ function App() {
   }
 
   if (isLoading && !forms) {
-    return <div className="p-8">Carregando provas pela primeira vez...</div>;
+    return <div className="p-8">A carregar provas da Univesp...</div>;
   }
 
   return (
