@@ -1,17 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
+import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { api } from './lib/api';
-import DashboardPage from './pages/DashboardPage'
+import { routeTree } from './routeTree.gen'
 
-interface Form {
-  id: string;
-  title: string;
-  description: string;
+const router = createRouter({ routeTree });
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
 }
 
 function App() {
-  return (<>
-    <DashboardPage />
-  </>)
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  )
 }
 
 export default App;

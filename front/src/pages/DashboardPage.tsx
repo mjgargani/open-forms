@@ -1,8 +1,18 @@
 import { useForms } from "@/features/forms/hooks/useForms";
 import { FormList } from "@/features/forms/components/FormList";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function DashboardPage() {
   const { data: forms, isLoading, isError } = useForms();
+  const navigate = useNavigate();
+
+  const handleOpenForm = (formId: string) => {
+    console.log("O utilizador clicou para abrir a prova com ID:", formId);
+    navigate({ 
+      to: '/forms/$formId', 
+      params: { formId: formId } 
+    });
+  };
 
   return (
     <main className="container mx-auto p-6 max-w-7xl">
@@ -23,7 +33,7 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {forms && <FormList forms={forms} />}
+      {forms && <FormList forms={forms} onFormClick={handleOpenForm} />}
     </main>
   );
 }

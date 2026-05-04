@@ -1,7 +1,7 @@
 // front/src/components/InputAnswer.tsx
 import React, { useRef, useState } from 'react';
-import { Option } from '../types';
-import { useMemoUpload } from '../hooks/useMemoUpload';
+import type { Option } from '@/types';
+import { useMemoUpload } from '@/hooks/useMemoUpload';
 
 interface InputAnswerProps {
   option: Option;
@@ -38,7 +38,7 @@ export function InputAnswer({ option }: InputAnswerProps) {
 
   // Lida com a seleção do ficheiro via botão
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.;
+    const file = e.target.files?.[0];
     if (!file) return;
 
     const markdownString = await uploadFile(file);

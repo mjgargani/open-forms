@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString, IsUUID, MaxLength } from "class-validator";
+import { IsNotEmpty, IsString, IsUUID, MaxLength, IsEnum } from "class-validator";
+import { QuestionType } from "../../generated/prisma/enums";
 
 export class CreateQuestionDto {
   @IsNotEmpty()
@@ -8,4 +9,8 @@ export class CreateQuestionDto {
 
   @IsUUID()
   formId!: string;
+
+  @IsNotEmpty()
+  @IsEnum(QuestionType)
+  type!: QuestionType;
 }
