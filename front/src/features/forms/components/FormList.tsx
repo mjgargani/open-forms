@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import type { Form } from "../hooks/useForms";
+import type { Form } from "@/types";
 
 interface FormListProps {
   forms: Form[];

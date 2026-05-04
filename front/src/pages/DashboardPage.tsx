@@ -1,9 +1,9 @@
-import { useForms } from "@/features/forms/hooks/useForms";
+import { useFormList } from "@/features/forms/hooks/useFormList";
 import { FormList } from "@/features/forms/components/FormList";
 import { useNavigate } from "@tanstack/react-router";
 
 export default function DashboardPage() {
-  const { data: forms, isLoading, isError } = useForms();
+  const { data: forms, isLoading, isError } = useFormList();
   const navigate = useNavigate();
 
   const handleOpenForm = (formId: string) => {

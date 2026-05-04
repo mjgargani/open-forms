@@ -1,11 +1,8 @@
-// src/types/index.ts
-
 export type OptionType = 'INPUT' | 'MARKDOWN';
 export type QuestionType = 'DISCURSIVE' | 'SINGLE' | 'MULTIPLE';
 
 export interface Option {
   id: string;
-  active?: boolean;
   description: string;
   type: OptionType;
   correct?: boolean;
@@ -14,9 +11,9 @@ export interface Option {
 
 export interface Question {
   id: string;
-  active?: boolean;
   title: string;
   formId: string;
+  type: QuestionType;
   required?: boolean;
   options: Option[];
 }
@@ -27,5 +24,6 @@ export interface Form {
   type: QuestionType;
   description?: string;
   active?: boolean;
+  published?: boolean;
   questions: Question[];
 }

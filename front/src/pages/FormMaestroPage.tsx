@@ -1,6 +1,6 @@
 import { useParams } from '@tanstack/react-router'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ExamExecutor } from "@/features/exam/components/ExamExecutor"
+import { ExamExecutor } from "@/features/exam-executor/components/ExamExecutor"
 
 export default function FormMaestroPage() {
   const { formId } = useParams({ from: '/forms/$formId' })

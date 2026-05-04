@@ -8,7 +8,7 @@ export interface Form {
   active: boolean;
 }
 
-export function useForms() {
+export function useFormList() {
   return useQuery({
     queryKey: ['forms'],
     queryFn: async () => {
