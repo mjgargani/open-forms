@@ -1,12 +1,16 @@
-import { IsNotEmpty, IsString, IsUUID, MaxLength } from "class-validator";
+import { IsNotEmpty, IsString, IsUUID, MaxLength, ValidateNested, IsArray } from "class-validator";
+import { Type } from "class-transformer";
+import { CreateAnswerDto } from "../../answers/dto/create-answer.dto"
 
 export class CreateSubmissionDto {
-  @IsNotEmpty()
   @IsString()
-  @MaxLength(300)
-  user!: string;
+  user: string;
 
-  @IsNotEmpty()
   @IsUUID()
-  formId!: string;
+  formId: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateAnswerDto)
+  answers: CreateAnswerDto[];
 }

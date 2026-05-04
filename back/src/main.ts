@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -8,6 +9,8 @@ async function bootstrap() {
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   });
+
+  await app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   await app.listen(process.env.PORT ?? 3000);
 }

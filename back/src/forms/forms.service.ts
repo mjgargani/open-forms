@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '@/prisma/prisma.service';
+import * as Papa from 'papaparse';
 
 @Injectable()
 export class FormsService {
@@ -69,6 +70,63 @@ export class FormsService {
           }
         }
       }
+    });
+  }
+
+  //CSV Export
+  async exportCsv(id: string): Promise<string> {
+    const form = await this.prisma.form.findUnique({
+      where: { id, active: true },
+      include: {
+        questions: {
+          where: { active: true },
+          include: { options: true }
+        },
+        submissions: {
+          where: { active: true },
+          include: { answers: true },
+          orderBy: { createdAt: 'desc' }
+        }
+      }
+    });
+
+    if (!form) throw new Error('Formulário não encontrado');
+
+    const questionMap = new Map(form.questions.map(q => [q.id, q.title]));
+    const optionMap = new Map(
+      form.questions.flatMap(q => q.options).map(o => [o.id, o.description])
+    );
+
+    const csvData = form.submissions.map(sub => {
+      const row: any = {
+        'ID da Submissão': sub.id,
+        'Usuário': sub.user,
+        'Data de Envio': sub.createdAt.toLocaleString('pt-BR'),
+      };
+
+      form.questions.forEach(q => {
+        row[q.title] = '';
+      });
+
+      sub.answers.forEach(ans => {
+        const questionTitle = questionMap.get(ans.questionId);
+        if (!questionTitle) return;
+
+        let answerText = ans.textValue || optionMap.get(ans.optionId) || '';
+
+        if (row[questionTitle] && answerText) {
+          row[questionTitle] += `, ${answerText}`;
+        } else if (answerText) {
+          row[questionTitle] = answerText;
+        }
+      });
+
+      return row;
+    });
+
+    return Papa.unparse(csvData, {
+      quotes: true,
+      delimiter: ';'
     });
   }
 }

@@ -93,7 +93,7 @@ async function main() {
       .filter(option => option.correct === true && option.type === "MARKDOWN")
       .map(option => 
         ({ 
-          questionId: baseForm.questions[0].id,
+          questionId: baseForm.questions[1].id,
           optionId: option.id
         })) || [];
   
@@ -101,7 +101,7 @@ async function main() {
       .filter(option => option.correct === true && option.type === "INPUT")
       .map(option => 
         ({ 
-          questionId: baseForm.questions[1].id,
+          questionId: baseForm.questions[2].id,
           optionId: option.id,
           textValue: "As Capitanias Hereditárias foram cruciais para a primeira tentativa de colonização e povoamento do Brasil por Portugal, utilizando recursos privados da nobreza para dividir, proteger e iniciar a exploração econômica do território, com destaque para a cana-de-açúcar. (Brasil Escola, 2026)"
         })) || [];

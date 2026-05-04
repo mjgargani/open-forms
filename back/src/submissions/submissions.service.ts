@@ -1,11 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
 import { UpdateSubmissionDto } from './dto/update-submission.dto';
+import { PrismaService } from '@/prisma/prisma.service';
 
 @Injectable()
 export class SubmissionsService {
+  constructor(private prisma: PrismaService) {}
+
   create(createSubmissionDto: CreateSubmissionDto) {
-    return 'This action adds a new submission';
+    return this.prisma.submission.create({
+      data: {
+        user: createSubmissionDto.user,
+        formId: createSubmissionDto.formId,
+        answers: {
+          create: createSubmissionDto.answers.map(answer => ({
+            questionId: answer.questionId,
+            optionId: answer.optionId,
+            textValue: answer.textValue,
+          }))
+        }
+      }
+    });
   }
 
   findAll() {
