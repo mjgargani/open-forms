@@ -38,23 +38,32 @@ export class FormsService {
 
   // Action-Domain - View
   exam(id: string) {
-    return this.prisma.form.findUnique({
+    return this.prisma.form.findFirst({ // Mudamos para findFirst por causa dos filtros booleanos
       where: { 
         id, 
-        active: true, // `active: true` que não estão sinalizados para remoção
-        published: true // `published: true` que é publicado
-      }, 
-      include: {
+        active: true, 
+        published: true 
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        createdAt: true,
+        updatedAt: true,
         questions: {
           where: { active: true },
-          include: { 
+          select: {
+            id: true,
+            title: true,
+            type: true,
+            formId: true, 
             options: {
               where: { active: true },
               select: {
                 id: true,
                 description: true,
                 type: true,
-                questionId: true,
+                questionId: true
               }
             }
           }

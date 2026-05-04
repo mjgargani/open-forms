@@ -33,17 +33,32 @@ async function main() {
           {
             title: 'Qual foi o **principal produto** de exportação do Brasil no século XVI?',
             required: true,
+            type: 'SINGLE',
             options: {
               create: [
                 { description: 'Café', type: 'MARKDOWN', correct: false },
-                { description: 'Açúcar', type: 'MARKDOWN', correct: true },
+                { description: 'Açúcar', type: 'MARKDOWN', correct: true }, // Apenas uma correta
                 { description: 'Pau-Brasil', type: 'MARKDOWN', correct: false },
+              ],
+            },
+          },
+          {
+            title: 'Sobre a **mineração no Brasil Colonial** (século XVIII), quais foram as principais consequências dessa atividade?',
+            required: true,
+            type: 'MULTIPLE',
+            options: {
+              create: [
+                { description: '**Mudança do eixo econômico e político** do Nordeste para o Sudeste.', type: 'MARKDOWN', correct: true },
+                { description: 'Intenso **processo de urbanização** e surgimento de uma classe média urbana.', type: 'MARKDOWN', correct: true },
+                { description: '**Declínio imediato e total** da produção açucareira no litoral.', type: 'MARKDOWN', correct: false },
+                { description: 'Maior fiscalização da Coroa Portuguesa, exemplificada pela **criação das Casas de Fundição**.', type: 'MARKDOWN', correct: true },
               ],
             },
           },
           {
             title: 'Descreva, **em poucas palavras**, a importância das Capitanias Hereditárias.',
             required: false,
+            type: 'DISCURSIVE',
             options: {
               create: [
                 { description: 'Espaço reservado para o texto do aluno...', type: 'INPUT', correct: true },
@@ -66,7 +81,15 @@ async function main() {
   console.log(`✅ Prova criada: ${baseForm.title}`);
   console.log('📝 Simulando a execução da prova por um aluno...');
 
-  const mockFormSelection: SubmissionMockForm = baseForm.questions[0].options
+  const mockFormSingle: SubmissionMockForm = baseForm.questions[0].options
+      .filter(option => option.correct === true && option.type === "MARKDOWN")
+      .map(option => 
+        ({ 
+          questionId: baseForm.questions[0].id,
+          optionId: option.id
+        })) || [];
+
+  const mockFormMultiple: SubmissionMockForm = baseForm.questions[1].options
       .filter(option => option.correct === true && option.type === "MARKDOWN")
       .map(option => 
         ({ 
@@ -74,7 +97,7 @@ async function main() {
           optionId: option.id
         })) || [];
   
-  const mockFormInput: SubmissionMockForm = baseForm.questions[1].options
+  const mockFormDiscursive: SubmissionMockForm = baseForm.questions[2].options
       .filter(option => option.correct === true && option.type === "INPUT")
       .map(option => 
         ({ 
@@ -83,7 +106,7 @@ async function main() {
           textValue: "As Capitanias Hereditárias foram cruciais para a primeira tentativa de colonização e povoamento do Brasil por Portugal, utilizando recursos privados da nobreza para dividir, proteger e iniciar a exploração econômica do território, com destaque para a cana-de-açúcar. (Brasil Escola, 2026)"
         })) || [];
 
-  console.log({ mockFormSelection, mockFormInput });
+  console.log({ mockFormSingle, mockFormMultiple, mockFormDiscursive });
 
   const formSubmission = await prisma.submission.create({
     data: {
@@ -91,8 +114,9 @@ async function main() {
       formId: baseForm.id,
       answers: {
         create: [
-          ...mockFormSelection,
-          ...mockFormInput
+          ...mockFormSingle,
+          ...mockFormMultiple,
+          ...mockFormDiscursive
         ]
       }
     },
