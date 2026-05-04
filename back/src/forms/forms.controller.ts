@@ -31,4 +31,9 @@ export class FormsController {
   remove(@Param('id') id: string) {
     return this.formsService.remove(id);
   }
+
+  @Get(':id/exam')
+  exam(@Param('id') id: string) {
+    return this.formsService.exam(id);
+  }
 }

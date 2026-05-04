@@ -35,4 +35,31 @@ export class FormsService {
       where: { id }
     });
   }
+
+  // Action-Domain - View
+  exam(id: string) {
+    return this.prisma.form.findUnique({
+      where: { 
+        id, 
+        active: true, // `active: true` que não estão sinalizados para remoção
+        published: true // `published: true` que é publicado
+      }, 
+      include: {
+        questions: {
+          where: { active: true },
+          include: { 
+            options: {
+              where: { active: true },
+              select: {
+                id: true,
+                description: true,
+                type: true,
+                questionId: true,
+              }
+            }
+          }
+        }
+      }
+    });
+  }
 }

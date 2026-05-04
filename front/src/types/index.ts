@@ -1,13 +1,14 @@
 // src/types/index.ts
 
 export type OptionType = 'INPUT' | 'MARKDOWN';
+export type QuestionType = 'DISCURSIVE' | 'SINGLE' | 'MULTIPLE';
 
 export interface Option {
   id: string;
   active?: boolean;
   description: string;
   type: OptionType;
-  correct?: boolean; // É opcional porque na Visão do Aluno o backend esconde o gabarito!
+  correct?: boolean;
   questionId: string;
 }
 
@@ -23,6 +24,7 @@ export interface Question {
 export interface Form {
   id: string;
   title: string;
+  type: QuestionType;
   description?: string;
   active?: boolean;
   questions: Question[];

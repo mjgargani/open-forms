@@ -27,6 +27,7 @@ async function main() {
     data: {
       title: 'Avaliação Diagnóstica - História do Brasil',
       description: 'Prova destinada aos alunos do Ensino Médio sobre o Período Colonial.',
+      published: true,
       questions: {
         create: [
           {
