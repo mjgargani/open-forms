@@ -1,36 +1,37 @@
-import React from 'react';
 import type { UseFormRegister } from 'react-hook-form';
-// Importe a sua interface Option do ficheiro de tipos central (ex: '@/types')
-// interface Option { id: string; description: string; type: string; }
+import type { Option, QuestionType } from '@/types';
+import type { ExamFormValues } from './ExamExecutor';
+import ReactMarkdown from 'react-markdown';
 
 interface OptionGroupProps {
-  options: any[]; // Substitua 'any' pela sua interface 'Option'
+  options: Option[];
   questionId: string;
-  register: UseFormRegister<any>;
+  questionType: QuestionType;
+  register: UseFormRegister<ExamFormValues>;
 }
 
-export function OptionGroup({ options, questionId, register }: OptionGroupProps) {
+export function OptionGroup({ options, questionId, questionType, register }: OptionGroupProps) {
+  const isSingleChoice = questionType === 'SINGLE';
+  const inputType = isSingleChoice ? 'radio' : 'checkbox';
+
   return (
     <div className="mt-4 space-y-3">
       {options.map((option) => (
         <label 
           key={option.id} 
-          // O focus-within garante que se o aluno usar a tecla TAB para navegar, 
-          // a caixa inteira fica destacada, melhorando a acessibilidade.
-          className="flex items-start space-x-3 p-3 border border-gray-200 rounded-md hover:bg-slate-50 cursor-pointer transition-colors focus-within:ring-2 focus-within:ring-primary focus-within:border-primary"
+          className="flex items-start gap-3 p-4 border rounded-lg hover:bg-accent/50 cursor-pointer transition-colors focus-within:ring-2 focus-within:ring-primary focus-within:border-primary"
         >
           <input
-            // Lembra-se do "Paradoxo do Gabarito"? Como o backend esconde 
-            // a resposta certa, usamos checkbox por padrão para permitir múltiplas seleções.
-            type="checkbox" 
+            type={inputType}
             value={option.id}
-            // A MÁGICA: Amarramos todos os checkboxes desta questão à mesma chave no JSON
             {...register(`answers.${questionId}`)}
-            className="mt-1 h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
+            className={`mt-1 h-5 w-5 text-primary border-input bg-background focus:ring-primary ${
+              isSingleChoice ? 'rounded-full' : 'rounded'
+            }`}
           />
-          <span className="text-gray-700 text-base leading-relaxed">
-            {option.description}
-          </span>
+          <div className="text-foreground prose prose-sm max-w-none leading-tight">
+            <ReactMarkdown>{option.description}</ReactMarkdown>
+          </div>
         </label>
       ))}
     </div>

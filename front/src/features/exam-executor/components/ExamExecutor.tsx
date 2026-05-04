@@ -3,6 +3,11 @@ import { useForm } from 'react-hook-form';
 import { useExamData } from '../hooks/useExamData';
 import { QuestionRenderer } from './QuestionRenderer';
 
+export interface ExamFormValues {
+  user: string;
+  answers: Record<string, string | string[]>;
+}
+
 interface ExamExecutorProps {
   formId: string;
 }
@@ -26,7 +31,7 @@ export function ExamExecutor({ formId }: ExamExecutorProps) {
     return <div className="p-4 bg-red-50 text-red-600 rounded-md border border-red-200">Falha ao carregar a prova. Verifique sua conexão.</div>;
   }
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: ExamFormValues) => {
     console.log("🚀 Payload pronto para envio:", data);
     
     if (isOfflineMode) {
