@@ -1,6 +1,7 @@
 import { useParams } from '@tanstack/react-router'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ExamExecutor } from "@/features/exam-executor/components/ExamExecutor"
+import { FormResults } from "@/features/forms/components/FormResults"
 
 export default function FormMaestroPage() {
   const { formId } = useParams({ from: '/forms/$formId' })
@@ -31,8 +32,7 @@ export default function FormMaestroPage() {
 
           <TabsContent value="respostas">
             <div className="p-8 border-2 border-dashed border-gray-300 rounded-lg text-center bg-gray-50">
-               <h3 className="text-lg font-semibold text-gray-700">Relatório e BI</h3>
-               <p className="text-gray-500">A tabela de resultados consumindo o CSV do servidor (TBD) entrará aqui.</p>
+               <FormResults formId={formId} />
             </div>
           </TabsContent>
 
