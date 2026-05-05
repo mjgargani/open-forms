@@ -2,6 +2,7 @@ import { useParams } from '@tanstack/react-router'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ExamExecutor } from "@/features/exam-executor/components/ExamExecutor"
 import { FormResults } from "@/features/forms/components/FormResults"
+import { FormBuilder } from "@/features/form-builder/components/FormBuilder"
 
 export default function FormMaestroPage() {
   const { formId } = useParams({ from: '/forms/$formId' })
@@ -25,8 +26,7 @@ export default function FormMaestroPage() {
 
           <TabsContent value="edicao">
             <div className="p-8 border-2 border-dashed border-gray-300 rounded-lg text-center bg-gray-50">
-              <h3 className="text-lg font-semibold text-gray-700">Builder de Formulário</h3>
-              <p className="text-gray-500">A interface de arrastar e soltar (TBD) entrará aqui.</p>
+              <FormBuilder formId={formId} />
             </div>
           </TabsContent>
 
