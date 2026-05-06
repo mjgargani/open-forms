@@ -15,15 +15,14 @@ export interface Question {
   formId: string;
   type: QuestionType;
   required?: boolean;
-  options: Option[];
+  options?: Option[];
 }
 
 export interface Form {
   id: string;
   title: string;
-  type: QuestionType;
   description?: string;
   active?: boolean;
   published?: boolean;
-  questions: Question[];
+  questions?: Question[];
 }
