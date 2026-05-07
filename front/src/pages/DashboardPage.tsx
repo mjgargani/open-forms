@@ -1,22 +1,29 @@
 import { useFormList } from "@/features/forms/hooks/useFormList";
+import { useCreateForm } from "@/features/forms/hooks/useCreateForm";
 import { FormList } from "@/features/forms/components/FormList";
 import { useNavigate } from "@tanstack/react-router";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, Loader2 } from "lucide-react";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function DashboardPage() {
   const { data: forms, isLoading, isError } = useFormList();
   const navigate = useNavigate();
 
+  // Hook de criação do form
+  const { mutate: createForm, isPending: isCreating } = useCreateForm();
+
   const handleOpenForm = (formId: string) => {
     navigate({ 
       to: '/forms/$formId', 
       params: { formId: formId } 
+    }).catch((err) => {
+      console.error("[ERRO DO ROUTER] A navegação falhou!", err);
     });
   };
 
   const handleCreateForm = () => {
-    const newFormId = crypto.randomUUID();
-    
+    const newFormId = uuidv4();
+
     const dataAtual = new Intl.DateTimeFormat('pt-BR', {
       day: '2-digit', month: '2-digit', year: 'numeric',
       hour: '2-digit', minute: '2-digit'
@@ -24,12 +31,12 @@ export default function DashboardPage() {
     
     const tituloProvisorio = `Novo rascunho (${dataAtual})`;
     
-    console.log(`[Offline-First] Preparando para salvar localmente: ${tituloProvisorio}`);
-
-    navigate({
-      to: '/forms/$formId',
-      params: { formId: newFormId }
+    createForm({ 
+      id: newFormId, 
+      title: tituloProvisorio 
     });
+
+    handleOpenForm(newFormId);
   };
 
   return (
@@ -43,10 +50,11 @@ export default function DashboardPage() {
         
         <button 
           onClick={handleCreateForm}
-          className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors shadow-sm font-medium"
+          disabled={isCreating} // Evita duplo clique
+          className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors shadow-sm font-medium disabled:opacity-50"
         >
-          <PlusCircle className="w-5 h-5" />
-          Criar formulário
+          {isCreating ? <Loader2 className="w-5 h-5 animate-spin" /> : <PlusCircle className="w-5 h-5" />}
+          {isCreating ? 'Criando...' : 'Criar formulário'}
         </button>
       </header>
 

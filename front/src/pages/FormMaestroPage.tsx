@@ -3,14 +3,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ExamExecutor } from "@/features/exam-executor/components/ExamExecutor"
 import { FormResults } from "@/features/forms/components/FormResults"
 import { FormBuilder } from "@/features/form-builder/components/FormBuilder"
+import { useGetForm } from '@/features/forms/hooks/useGetForm';
 import { ChevronLeft } from 'lucide-react';
 
 export default function FormMaestroPage() {
   const { formId } = useParams({ from: '/forms/$formId' });
   const navigate = useNavigate();
+  const { data: formData, isLoading } = useGetForm(formId);
   
   // No futuro, isso virá do Contexto de Autenticação (ex: useAuth().role === 'ADMIN')
   const isCreator = true 
+
+  if (isLoading) {
+    return <div className="p-8 text-center text-gray-500">Carregando formulário...</div>;
+  }
 
   return (
     <main className="container mx-auto p-4 max-w-4xl">
@@ -39,7 +45,7 @@ export default function FormMaestroPage() {
           </div>
 
           {/* Tabs Maestro */}
-          <Tabs defaultValue="visualizacao" className="w-full">
+          <Tabs defaultValue="edicao" className="w-full">
             {/* As abas só existem para o Professor/Criador */}
             <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="edicao">Edição</TabsTrigger>
@@ -49,7 +55,7 @@ export default function FormMaestroPage() {
 
             <TabsContent value="edicao">
               <div className="p-8 border-2 border-dashed border-gray-300 rounded-lg text-center bg-gray-50">
-                <FormBuilder formId={formId} />
+                <FormBuilder formId={formId} initialData={formData} />
               </div>
             </TabsContent>
 

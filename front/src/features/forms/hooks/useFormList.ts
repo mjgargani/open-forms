@@ -15,5 +15,6 @@ export function useFormList() {
       const response = await api.get<Form[]>('/forms');
       return response.data;
     },
+    staleTime: 1000 * 60 * 5,
   });
 }
