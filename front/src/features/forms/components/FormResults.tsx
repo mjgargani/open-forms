@@ -1,23 +1,27 @@
 import React from 'react';
 import { Download, RefreshCw, AlertCircle, CheckCircle2 } from 'lucide-react'; 
+import { useGetForm } from '../hooks/useGetForm';
 
 interface FormResultsProps {
   formId: string;
 }
 
 export function FormResults({ formId }: FormResultsProps) {
-  const mockStats = {
-    isPublished: true,
-    name: "Avaliação Diagnóstica - História do Brasil",
-    submissionCount: 1,
-    lastSync: new Date().toLocaleString('pt-PT'),
-    recentSubmissions: [
-      { id: '1', user: '2026101 - Maria Oliveira', date: '04/05/2026, 13:54' }
-    ]
+  const { data: form, isLoading, isError, refetch } = useGetForm(formId);
+
+  if (isLoading) return <div className="p-8 text-gray-500 animate-pulse">Calculando estatísticas...</div>;
+  if (isError || !form) return <div className="p-8 text-red-500">Erro ao carregar resultados.</div>;
+
+  const stats = {
+    isPublished: form.published,
+    name: form.title,
+    submissionCount: form._count?.submissions || 0,
+    lastSync: new Date(form.updatedAt).toLocaleString('pt-BR'),
+    recentSubmissions: form.submissions || []
   };
 
   const handleDownloadCSV = () => {
-    window.open(`http://localhost:3000/forms/${formId}/export`, '_blank');
+    window.open(`${import.meta.env.VITE_API_URL}/forms/${formId}/export`, '_blank');
   };
 
   return (
@@ -25,66 +29,61 @@ export function FormResults({ formId }: FormResultsProps) {
       
       {/* Aviso de Publicação */}
       <div className={`p-4 rounded-md flex items-center gap-3 border ${
-        mockStats.isPublished 
+        stats.isPublished 
           ? 'bg-green-50 border-green-200 text-green-800' 
           : 'bg-amber-50 border-amber-200 text-amber-800'
       }`}>
-        {mockStats.isPublished ? <CheckCircle2 className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
+        {stats.isPublished ? <CheckCircle2 className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
         <p className="text-sm font-medium">
-          O formulário <code className="bg-white/50 px-2 py-0.5 rounded">{formId}</code>{' '}
-          {mockStats.isPublished ? 'está publicado e a recebendo respostas.' : 'não está publicado. Usuários não conseguem acessa-lo.'}
+          O formulário <code>{stats.name}</code> {stats.isPublished ? 'está publicado e aceitando respostas.' : 'está em rascunho.'}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Card 1: Estatísticas */}
-        <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col">
-          <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Estatísticas do Formulário</h3>
-          <p className="text-sm text-gray-500 mb-6 font-medium">{mockStats.name}</p>
-          
-          <div className="flex-1 space-y-4">
-            <div className="flex justify-between items-center bg-slate-50 p-3 rounded-md">
-              <span className="text-gray-600">Total de Envios</span>
-              <span className="text-2xl font-black text-primary">{mockStats.submissionCount}</span>
+        {/* Card 1: Resumo */}
+        <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <h3 className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Total de Submissões</h3>
+            <div className="flex items-baseline gap-2">
+              <span className="text-4xl font-black text-slate-900">{stats.submissionCount}</span>
+              <span className="text-slate-400 text-sm font-medium">respostas</span>
             </div>
-            <div className="flex justify-between items-center text-xs text-gray-400">
-              <span>Atualizado a: {mockStats.lastSync}</span>
-              <button className="flex items-center gap-1 hover:text-primary transition-colors">
-                <RefreshCw className="w-3 h-3" /> Atualizar
-              </button>
-            </div>
+            <p className="text-[10px] text-slate-400 mt-4 flex items-center gap-1">
+              <RefreshCw className="w-3 h-3" /> Sincronizado em: {stats.lastSync}
+            </p>
           </div>
 
           <button 
             onClick={handleDownloadCSV}
-            className="mt-6 w-full flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-md font-semibold transition-colors focus:ring-4 focus:ring-slate-200"
+            className="mt-6 w-full flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-md font-semibold transition-colors shadow-lg"
           >
             <Download className="w-5 h-5" />
-            Gerar Relatório (CSV)
+            Exportar CSV Completo
           </button>
         </div>
 
         {/* Card 2: Envios Recentes */}
         <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-          <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Envios (Últimos 10)</h3>
+          <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Envios Recentes</h3>
           
-          {mockStats.recentSubmissions.length > 0 ? (
+          {stats.recentSubmissions.length > 0 ? (
             <ul className="space-y-3 mt-4">
-              {mockStats.recentSubmissions.map((sub) => (
-                <li key={sub.id} className="flex flex-col sm:flex-row sm:justify-between p-3 hover:bg-slate-50 border rounded-md transition-colors">
+              {stats.recentSubmissions.map((sub: any) => (
+                <li key={sub.id} className="flex flex-col sm:flex-row sm:justify-between p-3 hover:bg-slate-50 border rounded-md transition-colors bg-slate-50/30">
                   <span className="font-medium text-gray-700 text-sm truncate">{sub.user}</span>
-                  <span className="text-xs text-gray-500 mt-1 sm:mt-0">{sub.date}</span>
+                  <span className="text-[10px] text-gray-400 mt-1 sm:mt-0">
+                    {new Date(sub.createdAt).toLocaleDateString('pt-BR')}
+                  </span>
                 </li>
               ))}
             </ul>
           ) : (
-            <div className="h-32 flex items-center justify-center text-gray-400 text-sm italic">
-              Nenhuma submissão registada ainda.
+            <div className="py-10 text-center">
+              <p className="text-sm text-gray-400 italic">Nenhuma resposta recebida ainda.</p>
             </div>
           )}
         </div>
       </div>
-
     </div>
   );
 }

@@ -15,15 +15,16 @@ export class FormsService {
   }
 
   findAll() {
-    return this.prisma.form.findMany({
-      include: {
-        questions: {
-          include: { 
-            options: true 
-          }
-        }
-      }
-    });
+    return this.prisma.form.findMany();
+    // return this.prisma.form.findMany({
+    //   include: {
+    //     questions: {
+    //       include: { 
+    //         options: true 
+    //       }
+    //     }
+    //   }
+    // });
   }
 
   findOne(id: string) {
@@ -34,6 +35,13 @@ export class FormsService {
           include: { 
             options: true 
           }
+        },
+        submissions: {
+          orderBy: { createdAt: 'desc' },
+          take: 10
+        },
+        _count: {
+          select: { submissions: true }
         }
       }
     });
