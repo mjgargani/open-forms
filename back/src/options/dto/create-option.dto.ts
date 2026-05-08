@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsString, IsUUID, MaxLength } from "class-validator";
-import { OptionType } from "../../generated/prisma/enums";
+import { OptionType } from "@/generated/prisma/enums";
 
 export class CreateOptionDto {
   @IsNotEmpty()

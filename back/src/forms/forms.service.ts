@@ -25,9 +25,81 @@ export class FormsService {
   }
 
   update(id: string, updateFormDto: UpdateFormDto) {
-    return this.prisma.form.updateManyAndReturn({
+    const { questions, ...formPrimitiveData } = updateFormDto;
+
+    return this.prisma.form.update({
       where: { id },
-      data: updateFormDto
+      data: {
+        ...formPrimitiveData,
+
+        ...(questions && {
+          questions: {
+            // Deleta as questões antigas que NÃO vieram neste array
+            deleteMany: {
+              id: { notIn: questions.map((q) => q.id).filter(Boolean) as string[] },
+            },
+            
+            // Atualiza as existentes ou Cria as novas (Upsert)
+            upsert: questions.map((question) => ({
+              where: { id: question.id || '' },
+              
+              // Se não existir no banco, CRIA a questão e as opções dela
+              create: {
+                id: question.id,
+                title: question.title || '',
+                type: question.type,
+                required: question.required,
+                options: {
+                  create: question.options?.map(opt => ({
+                    id: opt.id,
+                    description: opt.description || '',
+                    type: opt.type,
+                    correct: opt.correct
+                  })) || []
+                }
+              },
+              
+              // Se já existir, ATUALIZA a questão e gerencia as opções aninhadas dela
+              update: {
+                title: question.title,
+                type: question.type,
+                required: question.required,
+                active: question.active,
+                ...(question.options && {
+                  options: {
+                    // Deleta as opções que foram removidas desta questão específica
+                    deleteMany: {
+                      id: { notIn: question.options.map((o) => o.id).filter(Boolean) as string[] }
+                    },
+                    // Cria ou atualiza as opções enviadas
+                    upsert: question.options.map((opt) => ({
+                      where: { id: opt.id || '' },
+                      create: {
+                        id: opt.id,
+                        description: opt.description || '',
+                        type: opt.type,
+                        correct: opt.correct
+                      },
+                      update: {
+                        description: opt.description,
+                        type: opt.type,
+                        correct: opt.correct,
+                        active: opt.active
+                      }
+                    }))
+                  }
+                })
+              }
+            }))
+          }
+        })
+      },
+      // Retornamos a árvore completa para o cache do React Query
+      include: {
+        questions: {
+          include: { options: true }
+        }
+      }
     });
   }
 

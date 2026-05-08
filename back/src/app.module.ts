@@ -4,19 +4,23 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FormsModule } from './forms/forms.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { QuestionsModule } from './questions/questions.module';
-import { OptionsModule } from './options/options.module';
 import { UploadsModule } from './uploads/uploads.module';
 import { SubmissionsModule } from './submissions/submissions.module';
-import { AnswersModule } from './answers/answers.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
 @Module({
-  imports: [ServeStaticModule.forRoot({
-    rootPath: join(process.cwd(), 'media'),
-    serveRoot: '/media'
-  }), PrismaModule, ConfigModule.forRoot(), FormsModule, QuestionsModule, OptionsModule, UploadsModule, SubmissionsModule, AnswersModule],
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'media'),
+      serveRoot: '/media'
+    }), 
+    PrismaModule, 
+    ConfigModule.forRoot(), 
+    FormsModule, 
+    SubmissionsModule, 
+    UploadsModule, 
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
