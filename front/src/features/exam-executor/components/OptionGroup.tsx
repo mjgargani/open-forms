@@ -3,33 +3,24 @@ import type { Option, QuestionType } from '@/types';
 import type { ExamFormValues } from './ExamExecutor';
 import ReactMarkdown from 'react-markdown';
 
-interface OptionGroupProps {
-  options: Option[];
-  questionId: string;
-  questionType: QuestionType;
-  register: UseFormRegister<ExamFormValues>;
-}
-
-export function OptionGroup({ options, questionId, questionType, register }: OptionGroupProps) {
-  const isSingleChoice = questionType === 'SINGLE';
-  const inputType = isSingleChoice ? 'radio' : 'checkbox';
+export function OptionGroup({ options, questionId, questionType, register }: { options: Option[], questionId: string, questionType: QuestionType, register: UseFormRegister<ExamFormValues> }) {
+  const isSingle = questionType === 'SINGLE';
+  const type = isSingle ? 'radio' : 'checkbox';
 
   return (
-    <div className="mt-4 space-y-3">
+    <div className="grid gap-3 mt-4">
       {options.map((option) => (
         <label 
           key={option.id} 
-          className="flex items-start gap-3 p-4 border rounded-lg hover:bg-accent/50 cursor-pointer transition-colors focus-within:ring-2 focus-within:ring-primary focus-within:border-primary"
+          className="flex items-start gap-3 p-4 rounded-lg border-2 border-transparent bg-gray-50 hover:bg-gray-100 cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5"
         >
           <input
-            type={inputType}
+            type={type}
             value={option.id}
-            {...register(`answers.${questionId}`)}
-            className={`mt-1 h-5 w-5 text-primary border-input bg-background focus:ring-primary ${
-              isSingleChoice ? 'rounded-full' : 'rounded'
-            }`}
+            {...register(`answers.${questionId}`, { required: true })}
+            className={`mt-1 h-5 w-5 text-primary focus:ring-primary ${isSingle ? 'rounded-full' : 'rounded'}`}
           />
-          <div className="text-foreground prose prose-sm max-w-none leading-tight">
+          <div className="prose prose-sm flex-1">
             <ReactMarkdown>{option.description}</ReactMarkdown>
           </div>
         </label>

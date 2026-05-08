@@ -1,19 +1,19 @@
-import { IsNotEmpty, IsString, IsUUID, MaxLength } from "class-validator";
+import { IsNotEmpty, IsString, IsUUID, MaxLength, IsOptional } from "class-validator";
 
 export class CreateAnswerDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsUUID()
-  submissionId!: string;
+  submissionId?: string;
 
   @IsNotEmpty()
   @IsUUID()
   questionId!: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsUUID()
-  optionId!: string;
+  optionId?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @MaxLength(5000)
   textValue?: string;

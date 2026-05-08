@@ -1,24 +1,14 @@
 import type { UseFormRegister } from 'react-hook-form';
-import type { Option } from '@/types';
 import type { ExamFormValues } from './ExamExecutor';
 
-interface InputAnswerProps {
-  option: Option;
-  questionId: string;
-  register: UseFormRegister<ExamFormValues>;
-}
-
-export function InputAnswer({ option, questionId, register }: InputAnswerProps) {
+export function InputAnswer({ questionId, register }: { questionId: string, register: UseFormRegister<ExamFormValues> }) {
   return (
-    <div className="mt-4 w-full">
-      {option.description && (
-        <p className="text-sm text-muted-foreground mb-2">{option.description}</p>
-      )}
-      
+    <div className="mt-4">
       <textarea
-        {...register(`answers.${questionId}`)}
-        className="w-full min-h-[150px] p-4 border border-input rounded-md bg-background text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-y"
-        placeholder="Escreva a sua resposta aqui..."
+        {...register(`answers.${questionId}`, { required: true })}
+        rows={4}
+        className="w-full p-4 bg-gray-50 border-2 border-transparent focus:border-primary focus:bg-white rounded-lg outline-none transition-all resize-none"
+        placeholder="Escreva sua resposta detalhadamente aqui..."
       />
     </div>
   );

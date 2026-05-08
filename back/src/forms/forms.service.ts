@@ -15,12 +15,27 @@ export class FormsService {
   }
 
   findAll() {
-    return this.prisma.form.findMany();
+    return this.prisma.form.findMany({
+      include: {
+        questions: {
+          include: { 
+            options: true 
+          }
+        }
+      }
+    });
   }
 
   findOne(id: string) {
     return this.prisma.form.findUnique({
-      where: { id }
+      where: { id },
+      include: {
+        questions: {
+          include: { 
+            options: true 
+          }
+        }
+      }
     });
   }
 

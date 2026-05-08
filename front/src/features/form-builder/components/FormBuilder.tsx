@@ -1,50 +1,63 @@
 import { useForm, useFieldArray } from 'react-hook-form';
-import { Plus, Save } from 'lucide-react';
+import { Plus } from 'lucide-react';
+import { v4 as uuidv4 } from 'uuid';
 import { QuestionBlock } from './QuestionBlock';
 import { useUpdateForm } from '@/features/forms/hooks/useUpdateForm';
 
 export function FormBuilder({ formId, initialData }: { formId: string, initialData: any }) {
-  // 1. Inicia o formulário com os dados vazios (ou puxados da API)
-  const { register, control, watch, getValues } = useForm({
+  const { register, control, getValues } = useForm({
     defaultValues: {
       title: initialData?.title || '',
       description: initialData?.description || '',
+      questions: initialData?.questions || [], // Semeia o array com os dados cacheados
     },
   });
 
-  // 2. O Controlador do Array de Questões
   const { fields, append, remove } = useFieldArray({
     control,
     name: "questions"
   });
 
-  // Instancia a mutação passando o ID do formulário atual
   const { mutate: updateForm } = useUpdateForm(formId);
 
-  // O motor do Auto-Save Granular
+  // Auto-Save para campos raiz
   const handleBlur = (fieldName: 'title' | 'description') => {
-    // Busca apenas o valor do campo que acabou de perder o foco
     const currentValue = getValues(fieldName);
-    
-    // Dispara o PATCH (ex: { title: "Nova Prova de Matemática" })
     updateForm({ [fieldName]: currentValue });
   };
 
+  const handleSaveQuestions = () => {
+    const currentQuestions = getValues('questions');
+    updateForm({ questions: currentQuestions });
+  };
+
   const handleAddQuestion = () => {
-    // Ao adicionar, disparamos a API (POST /questions) e pegamos o ID gerado
-    // Por enquanto, mockamos a adição na tela:
-    append({
-      id: crypto.randomUUID(), // Temporário até plugar a API
-      title: "",
-      type: "SINGLE",
-      required: true,
-      options: []
-    });
+    const newQuestion = {
+      id: uuidv4(),
+      title: '',
+      type: 'MULTIPLE',
+      formId: formId,
+      options: [
+        { 
+          id: uuidv4(), 
+          description: '', 
+          type: 'MARKDOWN', 
+          correct: false 
+        }
+      ]
+    };
+    
+    append(newQuestion);
+    setTimeout(handleSaveQuestions, 0);
+  };
+
+  const handleRemoveQuestion = (index: number) => {
+    remove(index);
+    setTimeout(handleSaveQuestions, 0);
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      
+    <form className="space-y-8 max-w-3xl mx-auto pb-20" onSubmit={(e) => e.preventDefault()}>
       {/* Cabeçalho do Formulário */}
       <div className="bg-white p-8 rounded-lg shadow-sm border border-t-4 border-t-primary">
         <input
@@ -65,24 +78,24 @@ export function FormBuilder({ formId, initialData }: { formId: string, initialDa
       <div className="space-y-6">
         {fields.map((field, index) => (
           <QuestionBlock 
-            key={field.id} // IMPORTANTÍSSIMO: Usar o ID do field do react-hook-form
+            key={field.id}
             index={index} 
             control={control} 
             register={register} 
-            onDelete={() => remove(index)}
+            onDelete={() => handleRemoveQuestion(index)}
+            onSave={handleSaveQuestions}
           />
         ))}
       </div>
 
-      {/* Fab Button (Botão flutuante para adicionar questão) */}
+      {/* Fab Button */}
       <button 
+        type="button" // Previne o submit padrão do HTML
         onClick={handleAddQuestion}
         className="flex items-center gap-2 mx-auto mt-8 bg-white border border-gray-300 shadow-sm px-6 py-3 rounded-full hover:bg-gray-50 transition-colors font-medium text-gray-700"
       >
-        <Plus className="w-5 h-5 text-primary" />
-        Adicionar Questão
+        <Plus className="w-5 h-5" /> Adicionar Questão
       </button>
-
-    </div>
+    </form>
   );
 }

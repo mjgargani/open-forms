@@ -13,10 +13,10 @@ export class SubmissionsService {
         user: createSubmissionDto.user,
         formId: createSubmissionDto.formId,
         answers: {
-          create: createSubmissionDto.answers.map(answer => ({
-            questionId: answer.questionId,
-            optionId: answer.optionId,
-            textValue: answer.textValue,
+          create: createSubmissionDto.answers.map(ans => ({
+            questionId: ans.questionId,
+            optionId: ans.optionId,
+            textValue: ans.textValue,
           }))
         }
       }
