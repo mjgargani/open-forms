@@ -77,6 +77,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const FormScalarFieldEnum = {
   id: 'id',
   active: 'active',
+  published: 'published',
   title: 'title',
   description: 'description',
   createdAt: 'createdAt',
@@ -90,6 +91,7 @@ export const QuestionScalarFieldEnum = {
   id: 'id',
   active: 'active',
   title: 'title',
+  type: 'type',
   formId: 'formId',
   required: 'required',
   createdAt: 'createdAt',

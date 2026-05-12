@@ -19,7 +19,13 @@
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "types": ["node", "jest", "multer"]
+    "types": ["node", "jest", "multer"],
+
+    /* Custom Paths */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "exclude": ["node_modules", "prisma", "test", "**/*.spec.ts", "dist"]
 }

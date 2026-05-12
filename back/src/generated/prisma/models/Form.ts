@@ -27,6 +27,7 @@ export type AggregateForm = {
 export type FormMinAggregateOutputType = {
   id: string | null
   active: boolean | null
+  published: boolean | null
   title: string | null
   description: string | null
   createdAt: Date | null
@@ -36,6 +37,7 @@ export type FormMinAggregateOutputType = {
 export type FormMaxAggregateOutputType = {
   id: string | null
   active: boolean | null
+  published: boolean | null
   title: string | null
   description: string | null
   createdAt: Date | null
@@ -45,6 +47,7 @@ export type FormMaxAggregateOutputType = {
 export type FormCountAggregateOutputType = {
   id: number
   active: number
+  published: number
   title: number
   description: number
   createdAt: number
@@ -56,6 +59,7 @@ export type FormCountAggregateOutputType = {
 export type FormMinAggregateInputType = {
   id?: true
   active?: true
+  published?: true
   title?: true
   description?: true
   createdAt?: true
@@ -65,6 +69,7 @@ export type FormMinAggregateInputType = {
 export type FormMaxAggregateInputType = {
   id?: true
   active?: true
+  published?: true
   title?: true
   description?: true
   createdAt?: true
@@ -74,6 +79,7 @@ export type FormMaxAggregateInputType = {
 export type FormCountAggregateInputType = {
   id?: true
   active?: true
+  published?: true
   title?: true
   description?: true
   createdAt?: true
@@ -156,6 +162,7 @@ export type FormGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type FormGroupByOutputType = {
   id: string
   active: boolean
+  published: boolean
   title: string
   description: string | null
   createdAt: Date
@@ -186,6 +193,7 @@ export type FormWhereInput = {
   NOT?: Prisma.FormWhereInput | Prisma.FormWhereInput[]
   id?: Prisma.StringFilter<"Form"> | string
   active?: Prisma.BoolFilter<"Form"> | boolean
+  published?: Prisma.BoolFilter<"Form"> | boolean
   title?: Prisma.StringFilter<"Form"> | string
   description?: Prisma.StringNullableFilter<"Form"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Form"> | Date | string
@@ -197,6 +205,7 @@ export type FormWhereInput = {
 export type FormOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -211,6 +220,7 @@ export type FormWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.FormWhereInput[]
   NOT?: Prisma.FormWhereInput | Prisma.FormWhereInput[]
   active?: Prisma.BoolFilter<"Form"> | boolean
+  published?: Prisma.BoolFilter<"Form"> | boolean
   title?: Prisma.StringFilter<"Form"> | string
   description?: Prisma.StringNullableFilter<"Form"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Form"> | Date | string
@@ -222,6 +232,7 @@ export type FormWhereUniqueInput = Prisma.AtLeast<{
 export type FormOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -237,6 +248,7 @@ export type FormScalarWhereWithAggregatesInput = {
   NOT?: Prisma.FormScalarWhereWithAggregatesInput | Prisma.FormScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Form"> | string
   active?: Prisma.BoolWithAggregatesFilter<"Form"> | boolean
+  published?: Prisma.BoolWithAggregatesFilter<"Form"> | boolean
   title?: Prisma.StringWithAggregatesFilter<"Form"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Form"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Form"> | Date | string
@@ -246,6 +258,7 @@ export type FormScalarWhereWithAggregatesInput = {
 export type FormCreateInput = {
   id?: string
   active?: boolean
+  published?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
@@ -257,6 +270,7 @@ export type FormCreateInput = {
 export type FormUncheckedCreateInput = {
   id?: string
   active?: boolean
+  published?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
@@ -268,6 +282,7 @@ export type FormUncheckedCreateInput = {
 export type FormUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -279,6 +294,7 @@ export type FormUpdateInput = {
 export type FormUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -290,6 +306,7 @@ export type FormUncheckedUpdateInput = {
 export type FormCreateManyInput = {
   id?: string
   active?: boolean
+  published?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
@@ -299,6 +316,7 @@ export type FormCreateManyInput = {
 export type FormUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -308,6 +326,7 @@ export type FormUpdateManyMutationInput = {
 export type FormUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -317,6 +336,7 @@ export type FormUncheckedUpdateManyInput = {
 export type FormCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -326,6 +346,7 @@ export type FormCountOrderByAggregateInput = {
 export type FormMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -335,6 +356,7 @@ export type FormMaxOrderByAggregateInput = {
 export type FormMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -393,6 +415,7 @@ export type FormUpdateOneRequiredWithoutSubmissionsNestedInput = {
 export type FormCreateWithoutQuestionsInput = {
   id?: string
   active?: boolean
+  published?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
@@ -403,6 +426,7 @@ export type FormCreateWithoutQuestionsInput = {
 export type FormUncheckedCreateWithoutQuestionsInput = {
   id?: string
   active?: boolean
+  published?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
@@ -429,6 +453,7 @@ export type FormUpdateToOneWithWhereWithoutQuestionsInput = {
 export type FormUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -439,6 +464,7 @@ export type FormUpdateWithoutQuestionsInput = {
 export type FormUncheckedUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -449,6 +475,7 @@ export type FormUncheckedUpdateWithoutQuestionsInput = {
 export type FormCreateWithoutSubmissionsInput = {
   id?: string
   active?: boolean
+  published?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
@@ -459,6 +486,7 @@ export type FormCreateWithoutSubmissionsInput = {
 export type FormUncheckedCreateWithoutSubmissionsInput = {
   id?: string
   active?: boolean
+  published?: boolean
   title: string
   description?: string | null
   createdAt?: Date | string
@@ -485,6 +513,7 @@ export type FormUpdateToOneWithWhereWithoutSubmissionsInput = {
 export type FormUpdateWithoutSubmissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -495,6 +524,7 @@ export type FormUpdateWithoutSubmissionsInput = {
 export type FormUncheckedUpdateWithoutSubmissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -545,6 +575,7 @@ export type FormCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.Type
 export type FormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   active?: boolean
+  published?: boolean
   title?: boolean
   description?: boolean
   createdAt?: boolean
@@ -557,6 +588,7 @@ export type FormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type FormSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   active?: boolean
+  published?: boolean
   title?: boolean
   description?: boolean
   createdAt?: boolean
@@ -566,6 +598,7 @@ export type FormSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type FormSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   active?: boolean
+  published?: boolean
   title?: boolean
   description?: boolean
   createdAt?: boolean
@@ -575,13 +608,14 @@ export type FormSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type FormSelectScalar = {
   id?: boolean
   active?: boolean
+  published?: boolean
   title?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type FormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "active" | "title" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["form"]>
+export type FormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "active" | "published" | "title" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["form"]>
 export type FormInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   questions?: boolean | Prisma.Form$questionsArgs<ExtArgs>
   submissions?: boolean | Prisma.Form$submissionsArgs<ExtArgs>
@@ -599,6 +633,7 @@ export type $FormPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     active: boolean
+    published: boolean
     title: string
     description: string | null
     createdAt: Date
@@ -1030,6 +1065,7 @@ export interface Prisma__FormClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface FormFieldRefs {
   readonly id: Prisma.FieldRef<"Form", 'String'>
   readonly active: Prisma.FieldRef<"Form", 'Boolean'>
+  readonly published: Prisma.FieldRef<"Form", 'Boolean'>
   readonly title: Prisma.FieldRef<"Form", 'String'>
   readonly description: Prisma.FieldRef<"Form", 'String'>
   readonly createdAt: Prisma.FieldRef<"Form", 'DateTime'>

@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const QuestionType = {
+  DISCURSIVE: 'DISCURSIVE',
+  SINGLE: 'SINGLE',
+  MULTIPLE: 'MULTIPLE'
+} as const
+
+export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
+
+
 export const OptionType = {
   INPUT: 'INPUT',
   MARKDOWN: 'MARKDOWN'

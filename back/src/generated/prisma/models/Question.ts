@@ -28,6 +28,7 @@ export type QuestionMinAggregateOutputType = {
   id: string | null
   active: boolean | null
   title: string | null
+  type: $Enums.QuestionType | null
   formId: string | null
   required: boolean | null
   createdAt: Date | null
@@ -38,6 +39,7 @@ export type QuestionMaxAggregateOutputType = {
   id: string | null
   active: boolean | null
   title: string | null
+  type: $Enums.QuestionType | null
   formId: string | null
   required: boolean | null
   createdAt: Date | null
@@ -48,6 +50,7 @@ export type QuestionCountAggregateOutputType = {
   id: number
   active: number
   title: number
+  type: number
   formId: number
   required: number
   createdAt: number
@@ -60,6 +63,7 @@ export type QuestionMinAggregateInputType = {
   id?: true
   active?: true
   title?: true
+  type?: true
   formId?: true
   required?: true
   createdAt?: true
@@ -70,6 +74,7 @@ export type QuestionMaxAggregateInputType = {
   id?: true
   active?: true
   title?: true
+  type?: true
   formId?: true
   required?: true
   createdAt?: true
@@ -80,6 +85,7 @@ export type QuestionCountAggregateInputType = {
   id?: true
   active?: true
   title?: true
+  type?: true
   formId?: true
   required?: true
   createdAt?: true
@@ -163,6 +169,7 @@ export type QuestionGroupByOutputType = {
   id: string
   active: boolean
   title: string
+  type: $Enums.QuestionType
   formId: string
   required: boolean
   createdAt: Date
@@ -194,6 +201,7 @@ export type QuestionWhereInput = {
   id?: Prisma.StringFilter<"Question"> | string
   active?: Prisma.BoolFilter<"Question"> | boolean
   title?: Prisma.StringFilter<"Question"> | string
+  type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
   formId?: Prisma.StringFilter<"Question"> | string
   required?: Prisma.BoolFilter<"Question"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
@@ -207,6 +215,7 @@ export type QuestionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   active?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   formId?: Prisma.SortOrder
   required?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -223,6 +232,7 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.QuestionWhereInput | Prisma.QuestionWhereInput[]
   active?: Prisma.BoolFilter<"Question"> | boolean
   title?: Prisma.StringFilter<"Question"> | string
+  type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
   formId?: Prisma.StringFilter<"Question"> | string
   required?: Prisma.BoolFilter<"Question"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
@@ -236,6 +246,7 @@ export type QuestionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   active?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   formId?: Prisma.SortOrder
   required?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -252,6 +263,7 @@ export type QuestionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Question"> | string
   active?: Prisma.BoolWithAggregatesFilter<"Question"> | boolean
   title?: Prisma.StringWithAggregatesFilter<"Question"> | string
+  type?: Prisma.EnumQuestionTypeWithAggregatesFilter<"Question"> | $Enums.QuestionType
   formId?: Prisma.StringWithAggregatesFilter<"Question"> | string
   required?: Prisma.BoolWithAggregatesFilter<"Question"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
@@ -262,6 +274,7 @@ export type QuestionCreateInput = {
   id?: string
   active?: boolean
   title: string
+  type?: $Enums.QuestionType
   required?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -274,6 +287,7 @@ export type QuestionUncheckedCreateInput = {
   id?: string
   active?: boolean
   title: string
+  type?: $Enums.QuestionType
   formId: string
   required?: boolean
   createdAt?: Date | string
@@ -286,6 +300,7 @@ export type QuestionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -298,6 +313,7 @@ export type QuestionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   formId?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -310,6 +326,7 @@ export type QuestionCreateManyInput = {
   id?: string
   active?: boolean
   title: string
+  type?: $Enums.QuestionType
   formId: string
   required?: boolean
   createdAt?: Date | string
@@ -320,6 +337,7 @@ export type QuestionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -329,6 +347,7 @@ export type QuestionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   formId?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -349,6 +368,7 @@ export type QuestionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   active?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   formId?: Prisma.SortOrder
   required?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -359,6 +379,7 @@ export type QuestionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   active?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   formId?: Prisma.SortOrder
   required?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -369,6 +390,7 @@ export type QuestionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   active?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   formId?: Prisma.SortOrder
   required?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -422,6 +444,10 @@ export type QuestionUncheckedUpdateManyWithoutFormNestedInput = {
   deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
 }
 
+export type EnumQuestionTypeFieldUpdateOperationsInput = {
+  set?: $Enums.QuestionType
+}
+
 export type QuestionCreateNestedOneWithoutOptionsInput = {
   create?: Prisma.XOR<Prisma.QuestionCreateWithoutOptionsInput, Prisma.QuestionUncheckedCreateWithoutOptionsInput>
   connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutOptionsInput
@@ -454,6 +480,7 @@ export type QuestionCreateWithoutFormInput = {
   id?: string
   active?: boolean
   title: string
+  type?: $Enums.QuestionType
   required?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -465,6 +492,7 @@ export type QuestionUncheckedCreateWithoutFormInput = {
   id?: string
   active?: boolean
   title: string
+  type?: $Enums.QuestionType
   required?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -505,6 +533,7 @@ export type QuestionScalarWhereInput = {
   id?: Prisma.StringFilter<"Question"> | string
   active?: Prisma.BoolFilter<"Question"> | boolean
   title?: Prisma.StringFilter<"Question"> | string
+  type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
   formId?: Prisma.StringFilter<"Question"> | string
   required?: Prisma.BoolFilter<"Question"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
@@ -515,6 +544,7 @@ export type QuestionCreateWithoutOptionsInput = {
   id?: string
   active?: boolean
   title: string
+  type?: $Enums.QuestionType
   required?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -526,6 +556,7 @@ export type QuestionUncheckedCreateWithoutOptionsInput = {
   id?: string
   active?: boolean
   title: string
+  type?: $Enums.QuestionType
   formId: string
   required?: boolean
   createdAt?: Date | string
@@ -553,6 +584,7 @@ export type QuestionUpdateWithoutOptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -564,6 +596,7 @@ export type QuestionUncheckedUpdateWithoutOptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   formId?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -575,6 +608,7 @@ export type QuestionCreateWithoutAnswersInput = {
   id?: string
   active?: boolean
   title: string
+  type?: $Enums.QuestionType
   required?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -586,6 +620,7 @@ export type QuestionUncheckedCreateWithoutAnswersInput = {
   id?: string
   active?: boolean
   title: string
+  type?: $Enums.QuestionType
   formId: string
   required?: boolean
   createdAt?: Date | string
@@ -613,6 +648,7 @@ export type QuestionUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -624,6 +660,7 @@ export type QuestionUncheckedUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   formId?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -635,6 +672,7 @@ export type QuestionCreateManyFormInput = {
   id?: string
   active?: boolean
   title: string
+  type?: $Enums.QuestionType
   required?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -644,6 +682,7 @@ export type QuestionUpdateWithoutFormInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -655,6 +694,7 @@ export type QuestionUncheckedUpdateWithoutFormInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -666,6 +706,7 @@ export type QuestionUncheckedUpdateManyWithoutFormInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -715,6 +756,7 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   active?: boolean
   title?: boolean
+  type?: boolean
   formId?: boolean
   required?: boolean
   createdAt?: boolean
@@ -729,6 +771,7 @@ export type QuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   active?: boolean
   title?: boolean
+  type?: boolean
   formId?: boolean
   required?: boolean
   createdAt?: boolean
@@ -740,6 +783,7 @@ export type QuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   active?: boolean
   title?: boolean
+  type?: boolean
   formId?: boolean
   required?: boolean
   createdAt?: boolean
@@ -751,13 +795,14 @@ export type QuestionSelectScalar = {
   id?: boolean
   active?: boolean
   title?: boolean
+  type?: boolean
   formId?: boolean
   required?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "active" | "title" | "formId" | "required" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
+export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "active" | "title" | "type" | "formId" | "required" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
 export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   form?: boolean | Prisma.FormDefaultArgs<ExtArgs>
   options?: boolean | Prisma.Question$optionsArgs<ExtArgs>
@@ -782,6 +827,7 @@ export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     active: boolean
     title: string
+    type: $Enums.QuestionType
     formId: string
     required: boolean
     createdAt: Date
@@ -1215,6 +1261,7 @@ export interface QuestionFieldRefs {
   readonly id: Prisma.FieldRef<"Question", 'String'>
   readonly active: Prisma.FieldRef<"Question", 'Boolean'>
   readonly title: Prisma.FieldRef<"Question", 'String'>
+  readonly type: Prisma.FieldRef<"Question", 'QuestionType'>
   readonly formId: Prisma.FieldRef<"Question", 'String'>
   readonly required: Prisma.FieldRef<"Question", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Question", 'DateTime'>

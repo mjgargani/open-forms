@@ -16,9 +16,19 @@ datasource db {
   provider = "postgresql"
 }
 
+// User-control (WIP)
+// model User {
+//   id          String   @id   @default(uuid())
+//   active      Boolean  @default(true) // Soft-delete
+//   user        String   @unique @db.VarChar(300)
+//   email       String   @db.VarChar(300)
+//   name        String   @db.VarChar(300)
+// }
+
 model Form {
   id          String     @id @default(uuid())
-  active      Boolean    @default(true)
+  active      Boolean    @default(true) // Soft-delete
+  published   Boolean    @default(false) // Disponível para o cliente
   title       String     @db.VarChar(300)
   description String?    @db.VarChar(3000)
   createdAt   DateTime   @default(now())
@@ -27,10 +37,17 @@ model Form {
   submissions Submission[]
 }
 
+enum QuestionType {
+  DISCURSIVE
+  SINGLE
+  MULTIPLE
+}
+
 model Question {
   id        String        @id @default(uuid())
   active    Boolean       @default(true)
   title     String        @db.VarChar(10000)
+  type      QuestionType  @default(MULTIPLE)
   formId    String
   required  Boolean       @default(false)
   createdAt   DateTime    @default(now())
