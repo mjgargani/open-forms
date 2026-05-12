@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Header, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { FormsService } from './forms.service';
 import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
@@ -30,5 +31,24 @@ export class FormsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.formsService.remove(id);
+  }
+
+  @Get(':id/exam')
+  exam(@Param('id') id: string) {
+    return this.formsService.exam(id);
+  }
+
+  @Get(':id/export')
+  @Header('Content-Type', 'text/csv; charset=utf-8')
+  async exportCsv(@Param('id') id: string, @Res() res: Response) {
+    const csvString = await this.formsService.exportCsv(id);
+    
+    const BOM = '\uFEFF'; // UTF-8
+    
+    res.set({
+      'Content-Disposition': `attachment; filename="resultados-${id}.csv"`,
+    });
+    
+    res.send(BOM + csvString);
   }
 }

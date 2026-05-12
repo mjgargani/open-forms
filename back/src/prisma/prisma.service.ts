@@ -10,12 +10,11 @@ export class PrismaService
 {
   constructor() {
     const pool = new Pool({
-      connectionString: process.env.DATABASE_URL!
+      connectionString: process.env['DATABASE_URL'],
     });
 
     const adapter = new PrismaPg(pool);
-    
-    super({ adapter, log: ['info', 'warn', 'error'] })
+    super({ adapter, log: ['info', 'warn', 'error'] });
   }
   async onModuleInit() {
     try {

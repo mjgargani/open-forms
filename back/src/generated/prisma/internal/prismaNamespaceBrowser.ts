@@ -53,7 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Form: 'Form',
   Question: 'Question',
-  Option: 'Option'
+  Option: 'Option',
+  Submission: 'Submission',
+  Answer: 'Answer'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -74,6 +76,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const FormScalarFieldEnum = {
   id: 'id',
+  active: 'active',
+  published: 'published',
   title: 'title',
   description: 'description',
   createdAt: 'createdAt',
@@ -85,9 +89,11 @@ export type FormScalarFieldEnum = (typeof FormScalarFieldEnum)[keyof typeof Form
 
 export const QuestionScalarFieldEnum = {
   id: 'id',
+  active: 'active',
   title: 'title',
   type: 'type',
   formId: 'formId',
+  required: 'required',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -97,6 +103,7 @@ export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typ
 
 export const OptionScalarFieldEnum = {
   id: 'id',
+  active: 'active',
   description: 'description',
   type: 'type',
   correct: 'correct',
@@ -106,6 +113,32 @@ export const OptionScalarFieldEnum = {
 } as const
 
 export type OptionScalarFieldEnum = (typeof OptionScalarFieldEnum)[keyof typeof OptionScalarFieldEnum]
+
+
+export const SubmissionScalarFieldEnum = {
+  id: 'id',
+  active: 'active',
+  user: 'user',
+  formId: 'formId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubmissionScalarFieldEnum = (typeof SubmissionScalarFieldEnum)[keyof typeof SubmissionScalarFieldEnum]
+
+
+export const AnswerScalarFieldEnum = {
+  id: 'id',
+  active: 'active',
+  submissionId: 'submissionId',
+  questionId: 'questionId',
+  optionId: 'optionId',
+  textValue: 'textValue',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnswerScalarFieldEnum = (typeof AnswerScalarFieldEnum)[keyof typeof AnswerScalarFieldEnum]
 
 
 export const SortOrder = {

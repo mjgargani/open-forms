@@ -16,41 +16,88 @@ datasource db {
   provider = "postgresql"
 }
 
+// User-control (WIP)
+// model User {
+//   id          String   @id   @default(uuid())
+//   active      Boolean  @default(true) // Soft-delete
+//   user        String   @unique @db.VarChar(300)
+//   email       String   @db.VarChar(300)
+//   name        String   @db.VarChar(300)
+// }
+
 model Form {
   id          String     @id @default(uuid())
-  title       String     @db.VarChar(280)
-  description String?    @db.VarChar(280)
+  active      Boolean    @default(true) // Soft-delete
+  published   Boolean    @default(false) // Disponível para o cliente
+  title       String     @db.VarChar(300)
+  description String?    @db.VarChar(3000)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt @default(now())
   questions   Question[]
+  submissions Submission[]
 }
 
 enum QuestionType {
-  TEXT
+  DISCURSIVE
+  SINGLE
   MULTIPLE
-  UNIQUE
 }
 
 model Question {
   id        String        @id @default(uuid())
-  title     String        @db.VarChar(280)
-  type      QuestionType
+  active    Boolean       @default(true)
+  title     String        @db.VarChar(10000)
+  type      QuestionType  @default(MULTIPLE)
   formId    String
+  required  Boolean       @default(false)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt @default(now())
 
   form      Form          @relation(fields: [formId], references: [id], onDelete: Cascade)
   options   Option[]
+  answers   Answer[]
+}
+
+enum OptionType {
+  INPUT
+  MARKDOWN
 }
 
 model Option {
   id              String      @id @default(uuid())
-  description     String      @db.VarChar(280)
-  type            QuestionType
+  active          Boolean     @default(true)
+  description     String      @db.VarChar(2000)
+  type            OptionType  @default(MARKDOWN)
   correct         Boolean     @default(false)
   questionId      String
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt @default(now())
 
   question        Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model Submission {
+  id          String   @id @default(uuid())
+  active      Boolean  @default(true)
+  user        String   @db.VarChar(300)
+  formId      String   
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt @default(now())
+
+  form        Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
+  answers     Answer[]
+}
+
+model Answer {
+  id           String      @id @default(uuid())
+  active       Boolean     @default(true)
+  submissionId String 
+  questionId   String
+  optionId     String?     // OptionType.MARKDOWN
+  textValue    String?     @db.VarChar(5000) // OptionType.INPUT
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt @default(now())
+
+  submission   Submission  @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  question     Question    @relation(fields: [questionId], references: [id])
 }

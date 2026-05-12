@@ -1,4 +1,23 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateFormDto } from './create-form.dto';
+import { IsString, IsOptional, ValidateNested, IsArray, IsBoolean } from 'class-validator';
+import { Type } from 'class-transformer';
+import { UpdateQuestionDto } from '@/questions/dto/update-question.dto';
 
-export class UpdateFormDto extends PartialType(CreateFormDto) {}
+export class UpdateFormDto {
+  @IsOptional()
+  @IsString()
+  title?: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  published?: boolean;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => UpdateQuestionDto)
+  questions?: UpdateQuestionDto[];
+}

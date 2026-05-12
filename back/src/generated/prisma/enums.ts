@@ -10,9 +10,17 @@
 */
 
 export const QuestionType = {
-  TEXT: 'TEXT',
-  MULTIPLE: 'MULTIPLE',
-  UNIQUE: 'UNIQUE'
+  DISCURSIVE: 'DISCURSIVE',
+  SINGLE: 'SINGLE',
+  MULTIPLE: 'MULTIPLE'
 } as const
 
 export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
+
+
+export const OptionType = {
+  INPUT: 'INPUT',
+  MARKDOWN: 'MARKDOWN'
+} as const
+
+export type OptionType = (typeof OptionType)[keyof typeof OptionType]
