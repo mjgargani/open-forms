@@ -11,9 +11,6 @@ export default function FormMaestroPage() {
   const navigate = useNavigate();
   const { data: formData, isLoading } = useGetForm(formId);
   
-  // No futuro, isso virá do Contexto de Autenticação (ex: useAuth().role === 'ADMIN')
-  const isCreator = true 
-
   if (isLoading) {
     return <div className="p-8 text-center text-gray-500">Carregando formulário...</div>;
   }

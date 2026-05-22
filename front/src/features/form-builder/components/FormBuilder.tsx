@@ -80,7 +80,7 @@ export function FormBuilder({ formId, initialData }: { formId: string, initialDa
           <QuestionBlock 
             key={field.id}
             index={index} 
-            control={control} 
+            control={control as any}
             register={register} 
             onDelete={() => handleRemoveQuestion(index)}
             onSave={handleSaveQuestions}

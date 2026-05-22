@@ -16,14 +16,21 @@ datasource db {
   provider = "postgresql"
 }
 
-// User-control (WIP)
-// model User {
-//   id          String   @id   @default(uuid())
-//   active      Boolean  @default(true) // Soft-delete
-//   user        String   @unique @db.VarChar(300)
-//   email       String   @db.VarChar(300)
-//   name        String   @db.VarChar(300)
-// }
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id          String   @id   @default(uuid())
+  active      Boolean  @default(true) // Soft-delete
+  user        String   @unique @db.VarChar(300)
+  email       String   @db.VarChar(300)
+  name        String   @db.VarChar(300)
+  password    String   @db.VarChar(300)
+  role        Role     @default(USER)
+  forms       Form[]
+}
 
 model Form {
   id          String     @id @default(uuid())
@@ -33,6 +40,8 @@ model Form {
   description String?    @db.VarChar(3000)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt @default(now())
+  userId      String?
+  user        User?      @relation(fields: [userId], references: [id])
   questions   Question[]
   submissions Submission[]
 }

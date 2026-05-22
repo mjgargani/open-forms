@@ -53,7 +53,13 @@ export function QuestionBlock({ index, control, register, onDelete, onSave }: Qu
         <div className="space-y-2 pl-2">
           {options.map((opt, optIndex) => (
             <div key={opt.id} className="flex items-center gap-3">
-              <div className="w-4 h-4 rounded-full border-2 border-gray-300" />
+              <input
+                type="checkbox"
+                {...register(`questions.${index}.options.${optIndex}.correct`)}
+                onChange={() => setTimeout(onSave, 0)} // MÁGICA: Salva o gabarito
+                className="w-4 h-4 border-2 border-gray-300 text-primary focus:ring-primary rounded"
+                title="Marcar como resposta correta"
+              />
               
               <input
                 {...register(`questions.${index}.options.${optIndex}.description`)}

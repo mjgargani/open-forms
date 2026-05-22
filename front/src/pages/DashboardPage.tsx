@@ -9,8 +9,18 @@ export default function DashboardPage() {
   const { data: forms, isLoading, isError } = useFormList();
   const navigate = useNavigate();
 
+  const userStr = localStorage.getItem('user');
+  const user = userStr ? JSON.parse(userStr) : null;
+  const isAdmin = user?.role === 'ADMIN';
+
   // Hook de criação do form
   const { mutate: createForm, isPending: isCreating } = useCreateForm();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = '/login';
+  };
 
   const handleOpenForm = (formId: string) => {
     navigate({ 
@@ -48,14 +58,30 @@ export default function DashboardPage() {
           <p className="text-muted-foreground">Avaliações disponíveis no banco de dados local.</p>
         </div>
         
-        <button 
-          onClick={handleCreateForm}
-          disabled={isCreating} // Evita duplo clique
-          className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors shadow-sm font-medium disabled:opacity-50"
-        >
-          {isCreating ? <Loader2 className="w-5 h-5 animate-spin" /> : <PlusCircle className="w-5 h-5" />}
-          {isCreating ? 'Criando...' : 'Criar formulário'}
-        </button>
+        <div className="flex gap-2">
+          {isAdmin && (
+            <button
+              onClick={() => navigate({ to: '/admin' })}
+              className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors shadow-sm font-medium"
+            >
+              Painel Admin
+            </button>
+          )}
+          <button
+            onClick={handleCreateForm}
+            disabled={isCreating} // Evita duplo clique
+            className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors shadow-sm font-medium disabled:opacity-50"
+          >
+            {isCreating ? <Loader2 className="w-5 h-5 animate-spin" /> : <PlusCircle className="w-5 h-5" />}
+            {isCreating ? 'Criando...' : 'Criar formulário'}
+          </button>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors shadow-sm font-medium"
+          >
+            Sair
+          </button>
+        </div>
       </header>
 
       {isLoading && (

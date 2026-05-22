@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/User'
 export type * from './models/Form'
 export type * from './models/Question'
 export type * from './models/Option'

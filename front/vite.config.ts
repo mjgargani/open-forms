@@ -7,6 +7,14 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 
 export default defineConfig({
+  server: {
+    proxy: {
+      '/auth': 'http://localhost:3000',
+      '/users': 'http://localhost:3000',
+      '/forms': 'http://localhost:3000',
+      '/submissions': 'http://localhost:3000',
+    }
+  },
   plugins: [
     TanStackRouterVite(),
     react(), 
