@@ -2,16 +2,32 @@ import { useFieldArray } from 'react-hook-form';
 import type { Control, UseFormRegister } from 'react-hook-form';
 import { Trash2, GripVertical, PlusCircle } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
+import { FormPayload } from '@/types/form';
 
 interface QuestionBlockProps {
   index: number;
-  control: Control<any>;
-  register: UseFormRegister<any>;
+  control: Control<FormPayload>;
+  register: UseFormRegister<FormPayload>;
   onDelete: () => void;
   onSave: () => void;
 }
 
-export function QuestionBlock({ index, control, register, onDelete, onSave }: QuestionBlockProps) {
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+export function QuestionBlock({ index, control, register, onDelete, onSave, id }: QuestionBlockProps & { id: string }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
   
   const { fields: options, append: appendOption, remove: removeOption } = useFieldArray({
     control,
@@ -34,9 +50,9 @@ export function QuestionBlock({ index, control, register, onDelete, onSave }: Qu
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex gap-4 group">
+    <div ref={setNodeRef} style={style} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex gap-4 group">
       
-      <div className="text-gray-300 cursor-grab hover:text-gray-500 mt-2">
+      <div {...attributes} {...listeners} className="text-gray-300 cursor-grab active:cursor-grabbing hover:text-gray-500 mt-2">
         <GripVertical className="w-5 h-5" />
       </div>
 

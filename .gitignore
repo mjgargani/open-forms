@@ -147,4 +147,5 @@ vite.config.ts.timestamp-*
 
 # Prod
 postgres_data/
-*.webp
+*.webp.stryker-tmp/
+reports/

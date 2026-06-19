@@ -35,22 +35,22 @@ export function ExamExecutor({ formId }: { formId: string }) {
 
   const onSubmit = (data: ExamFormValues) => {
     // Transformamos o Record { questionId: value } para o Array [ { questionId, ... } ]
-    const formattedAnswers: any[] = Object.entries(data.answers).flatMap(([qId, value]) => {
+    const formattedAnswers: Array<{ questionId: string; textValue?: string; optionId?: string }> = Object.entries(data.answers).flatMap(([qId, value]) => {
       const question = form.questions?.find(q => q.id === qId);
       
       // Se for Discursiva (INPUT)
       if (question?.type === 'DISCURSIVE') {
-        return [{ questionId: qId, textValue: value as string }] as any[];
+        return [{ questionId: qId, textValue: value as string }];
       }
       
       // Se for Múltipla Escolha (MULTIPLE) - value é um array
       if (Array.isArray(value)) {
-        return value.map(v => ({ questionId: qId, optionId: v })) as any[];
+        return value.map(v => ({ questionId: qId, optionId: v }));
       }
       
       // Se for Escolha Única (SINGLE) - value é uma string (ID da opção)
-      return [{ questionId: qId, optionId: value as string }] as any[];
-    }) as any[];
+      return [{ questionId: qId, optionId: value as string }];
+    });
 
     submitExam({ user: data.user, answers: formattedAnswers });
   };

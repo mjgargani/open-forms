@@ -73,7 +73,7 @@ export function FormResults({ formId }: FormResultsProps) {
           
           {stats.recentSubmissions.length > 0 ? (
             <ul className="space-y-3 mt-4">
-              {stats.recentSubmissions.map((sub: any) => (
+              {stats.recentSubmissions.map((sub: { id: string; user: string; createdAt: string }) => (
                 <li key={sub.id} className="flex flex-col sm:flex-row sm:justify-between p-3 hover:bg-slate-50 border rounded-md transition-colors bg-slate-50/30">
                   <span className="font-medium text-gray-700 text-sm truncate">{sub.user}</span>
                   <span className="text-[10px] text-gray-400 mt-1 sm:mt-0">
@@ -118,7 +118,7 @@ export function FormResults({ formId }: FormResultsProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {statsData.questionsStats.map((qStats: any, i: number) => (
+              {statsData.questionsStats.map((qStats: { questionTitle: string; optionsDistribution: { name: string; value: number }[] }, i: number) => (
                   <div key={i} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
                       <h4 className="text-md font-bold text-gray-700 text-center mb-2 truncate" title={qStats.questionTitle}>{qStats.questionTitle}</h4>
                       <div className="h-48 w-full">
@@ -132,9 +132,9 @@ export function FormResults({ formId }: FormResultsProps) {
                                       fill="#8884d8"
                                       dataKey="value"
                                       nameKey="name"
-                                      label={({ percent }: any) => `${(percent * 100).toFixed(0)}%`}
+                                      label={({ percent }: { percent: number }) => `${(percent * 100).toFixed(0)}%`}
                                   >
-                                      {qStats.optionsDistribution.map((_entry: any, index: number) => (
+                                      {qStats.optionsDistribution.map((_entry: unknown, index: number) => (
                                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                       ))}
                                   </Pie>

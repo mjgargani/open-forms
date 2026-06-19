@@ -3,9 +3,10 @@ import { Plus } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 import { QuestionBlock } from './QuestionBlock';
 import { useUpdateForm } from '@/features/forms/hooks/useUpdateForm';
+import { FormPayload } from '@/types/form';
 
-export function FormBuilder({ formId, initialData }: { formId: string, initialData: any }) {
-  const { register, control, getValues } = useForm({
+export function FormBuilder({ formId, initialData }: { formId: string, initialData: FormPayload }) {
+  const { register, control, getValues } = useForm<FormPayload>({
     defaultValues: {
       title: initialData?.title || '',
       description: initialData?.description || '',
@@ -80,7 +81,7 @@ export function FormBuilder({ formId, initialData }: { formId: string, initialDa
           <QuestionBlock 
             key={field.id}
             index={index} 
-            control={control as any}
+            control={control}
             register={register} 
             onDelete={() => handleRemoveQuestion(index)}
             onSave={handleSaveQuestions}

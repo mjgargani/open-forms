@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { FormPayload, Question } from '@/types/form';
 
 export interface UpdateFormDTO {
   title?: string;
   description?: string;
   published?: boolean;
-  questions?: any[]; 
+  questions?: Question[];
 }
 
 export function useUpdateForm(formId: string) {
@@ -24,10 +25,13 @@ export function useUpdateForm(formId: string) {
 
       const previousForm = queryClient.getQueryData(['forms', formId]);
 
-      queryClient.setQueryData(['forms', formId], (old: any) => ({
-        ...old,
-        ...updatedData,
-      }));
+      queryClient.setQueryData(['forms', formId], (old: FormPayload | undefined) => {
+        if (!old) return undefined;
+        return {
+          ...old,
+          ...updatedData,
+        };
+      });
 
       return { previousForm };
     },

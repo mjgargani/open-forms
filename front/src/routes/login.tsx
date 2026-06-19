@@ -19,7 +19,8 @@ function Login() {
       localStorage.setItem('user', JSON.stringify(data.user));
       // redirect to dashboard (index)
       window.location.href = '/';
-    } catch (err: any) {
+    } catch (err: unknown) {
+      console.error(err);
       setError('Credenciais inválidas');
     }
   };

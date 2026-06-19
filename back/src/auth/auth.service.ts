@@ -10,7 +10,7 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
+  async validateUser(username: string, pass: string): Promise<Record<string, unknown> | null> {
     const user = await this.usersService.findOne(username);
     if (user && await bcrypt.compare(pass, user.password)) {
       const { password, ...result } = user;
@@ -19,7 +19,15 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
+  /**
+   * TODO (Architectural): SSO/OAuth Integration
+   * Future implementation should integrate with Google SSO or LDAP via Strategy Pattern.
+   * This method will need to handle OAuth tokens or SAML assertions instead of just basic auth.
+   */
+  async login(user: { username: string; password?: string }) {
+    if (!user.password) {
+        throw new UnauthorizedException();
+    }
     const validatedUser = await this.validateUser(user.username, user.password);
     if (!validatedUser) {
         throw new UnauthorizedException();

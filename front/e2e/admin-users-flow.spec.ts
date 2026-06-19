@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Open-Forms E2E Admin Users Flow', () => {
   test('Login as admin, check users list, and verify form access', async ({ page }) => {
+    const uniqueUser = `test_user_${Date.now()}`;
+
     // Navigate to the app
     await page.goto('http://localhost:5173/login');
 
@@ -66,8 +68,10 @@ test.describe('Open-Forms E2E Admin Users Flow', () => {
     await page.waitForTimeout(2000);
     // accept the alert
     page.on('dialog', dialog => dialog.accept());
-    // Click the delete button on the second row (the first row is admin)
-    await page.locator('tbody tr').nth(1).locator('button').nth(1).click();
-    await expect(page.locator('text=test@test.com')).not.toBeVisible();
+    // Click the delete button for the newly created user
+    const row = page.locator('tbody tr').filter({ hasText: uniqueUser }).first();
+    await row.locator('.text-gray-400.hover\\:text-red-500').click();
+    // Wait for row to disappear
+    await expect(row).not.toBeVisible();
   });
 });

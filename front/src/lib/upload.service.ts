@@ -7,7 +7,7 @@ export interface UploadResponse {
 
 export const uploadMemoFile = async (
   file: File,
-  onProgress?: (progressEvent: any) => void
+  onProgress?: (progressEvent: import('axios').AxiosProgressEvent) => void
 ): Promise<UploadResponse> => {
   const formData = new FormData();
   

@@ -27,7 +27,7 @@ export class FormsService {
   }
 
   findOne(id: string, userId: string | null) {
-    const whereClause: any = { id, active: true };
+    const whereClause: { id: string; active: boolean; userId?: string } = { id, active: true };
     if (userId) {
         whereClause.userId = userId;
     }
@@ -55,7 +55,7 @@ export class FormsService {
   update(id: string, updateFormDto: UpdateFormDto, userId: string | null) {
     const { questions, ...formPrimitiveData } = updateFormDto;
 
-    const whereClause: any = { id };
+    const whereClause: { id: string; userId?: string } = { id };
     if (userId) {
         whereClause.userId = userId;
     }
@@ -137,7 +137,7 @@ export class FormsService {
   }
 
   remove(id: string, userId: string | null) {
-    const whereClause: any = { id };
+    const whereClause: { id: string; userId?: string } = { id };
     if (userId) {
         whereClause.userId = userId;
     }
@@ -208,7 +208,7 @@ export class FormsService {
     );
 
     const csvData = form.submissions.map(sub => {
-      const row: any = {
+      const row: Record<string, string | number> = {
         'ID da Submissão': sub.id,
         'Usuário': sub.user,
         'Data de Envio': sub.createdAt.toLocaleString('pt-BR'),
@@ -254,8 +254,18 @@ export class FormsService {
     });
   }
 
+  /**
+   * Retrieves statistical data for a specific form.
+   * This is used to build the Business Intelligence (BI) dashboard on the frontend.
+   * It calculates the total number of submissions, average score, and option distribution
+   * per question.
+   *
+   * @param id - The ID of the form.
+   * @param userId - The ID of the user requesting the stats (for RBAC isolation).
+   * @returns Aggregated statistics data.
+   */
   async getStats(id: string, userId: string | null) {
-      const whereClause: any = { id, active: true };
+      const whereClause: { id: string; active: boolean; userId?: string } = { id, active: true };
       if (userId) {
           whereClause.userId = userId;
       }

@@ -1,0 +1,1 @@
+export interface Option { id?: string; description: string; correct?: boolean; } export interface Question { id?: string; title: string; type: 'TEXT' | 'SINGLE' | 'MULTIPLE'; options?: Option[]; order?: number; } export interface FormPayload { id?: string; title: string; description: string; published?: boolean; questions: Question[]; }

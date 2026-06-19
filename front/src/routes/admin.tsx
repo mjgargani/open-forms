@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { api } from '@/lib/api';
 import { Trash2, Edit2, ShieldAlert } from 'lucide-react';
+import { User, CreateUserPayload } from '@/types/user';
 
 export const Route = createFileRoute('/admin')({
   beforeLoad: () => {
@@ -39,7 +40,7 @@ function AdminDashboard() {
   });
 
   const createMutation = useMutation({
-    mutationFn: async (newUser: any) => {
+    mutationFn: async (newUser: CreateUserPayload) => {
       return api.post('/users', newUser);
     },
     onSuccess: () => {
@@ -49,7 +50,7 @@ function AdminDashboard() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: async ({ id, data }: { id: string, data: any }) => {
+    mutationFn: async ({ id, data }: { id: string, data: Partial<CreateUserPayload> }) => {
       return api.patch(`/users/${id}`, data);
     },
     onSuccess: () => {
@@ -70,19 +71,19 @@ function AdminDashboard() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isEditing) {
-      const dataToUpdate: any = { ...formData };
+      const dataToUpdate: Partial<CreateUserPayload> = { ...formData };
       if (!dataToUpdate.password) delete dataToUpdate.password;
       updateMutation.mutate({ id: isEditing, data: dataToUpdate });
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate(formData as CreateUserPayload);
     }
   };
 
-  const handleEdit = (user: any) => {
+  const handleEdit = (user: User & { email?: string }) => {
     setIsEditing(user.id);
     setFormData({
       user: user.user,
-      email: user.email,
+      email: user.email || '',
       name: user.name,
       password: '',
       role: user.role
@@ -158,7 +159,7 @@ function AdminDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {users?.map((user: any) => (
+                {users?.map((user: User & { email?: string }) => (
                   <tr key={user.id} className="hover:bg-gray-50">
                     <td className="p-4">
                       <div className="font-medium text-gray-900">{user.name}</div>

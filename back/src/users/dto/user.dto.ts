@@ -1,0 +1,1 @@
+import { PartialType } from '@nestjs/mapped-types'; export class CreateUserDto { user!: string; password!: string; name!: string; role?: string; } export class UpdateUserDto extends PartialType(CreateUserDto) {}

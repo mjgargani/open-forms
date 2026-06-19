@@ -5,6 +5,7 @@ import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Role } from '@/generated/prisma/enums';
+import { RequestWithUser } from '../common/interfaces/request-with-user.interface';
 
 @Controller('forms')
 export class FormsController {
@@ -12,13 +13,13 @@ export class FormsController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Request() req: any, @Body() createFormDto: CreateFormDto) {
+  create(@Request() req: RequestWithUser, @Body() createFormDto: CreateFormDto) {
     return this.formsService.create(createFormDto, req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(@Request() req: any) {
+  findAll(@Request() req: RequestWithUser) {
     if (req.user.role === Role.ADMIN) {
       return this.formsService.findAll(null); // Admin sees all
     }
@@ -27,7 +28,7 @@ export class FormsController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Request() req: any, @Param('id') id: string) {
+  findOne(@Request() req: RequestWithUser, @Param('id') id: string) {
     if (req.user.role === Role.ADMIN) {
         return this.formsService.findOne(id, null);
     }
@@ -36,7 +37,7 @@ export class FormsController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Request() req: any, @Param('id') id: string, @Body() updateFormDto: UpdateFormDto) {
+  update(@Request() req: RequestWithUser, @Param('id') id: string, @Body() updateFormDto: UpdateFormDto) {
     if (req.user.role === Role.ADMIN) {
         return this.formsService.update(id, updateFormDto, null);
     }
@@ -45,7 +46,7 @@ export class FormsController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Request() req: any, @Param('id') id: string) {
+  remove(@Request() req: RequestWithUser, @Param('id') id: string) {
     if (req.user.role === Role.ADMIN) {
         return this.formsService.remove(id, null);
     }
@@ -60,7 +61,7 @@ export class FormsController {
   @UseGuards(JwtAuthGuard)
   @Get(':id/export')
   @Header('Content-Type', 'text/csv; charset=utf-8')
-  async exportCsv(@Request() req: any, @Param('id') id: string, @Res() res: Response) {
+  async exportCsv(@Request() req: RequestWithUser, @Param('id') id: string, @Res() res: Response) {
     const csvString = await this.formsService.exportCsv(id);
     
     const BOM = '\uFEFF'; // UTF-8
@@ -74,7 +75,7 @@ export class FormsController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id/stats')
-  getStats(@Request() req: any, @Param('id') id: string) {
+  getStats(@Request() req: RequestWithUser, @Param('id') id: string) {
     if (req.user.role === Role.ADMIN) {
         return this.formsService.getStats(id, null);
     }
